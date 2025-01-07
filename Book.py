@@ -11,9 +11,9 @@ class Book(ABC):
         self.__year = year
         self.__is_loaned = is_loaned
         self.__available_copies=self.__copies
-        self.__dic_copies={}###############################
-        for i in range(copies):#####################################
-            self.__dic_copies[i]=True###########################
+        self.__dic_copies={}
+        for i in range(copies):
+            self.__dic_copies[i]=True#need to update according to books.csv
 
     def request_to_loan(self):
         if self.__available_copies >= 1:
