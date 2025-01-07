@@ -32,6 +32,10 @@ class Book(ABC):
         self.__available_copies= self.__available_copies+num_of_copies
         self.__dic_copies[self.__copies]=True
         print(f"Added {num_of_copies} copies of {self.__title}")
+        # df=pd.read_csv("books.csv")
+        # df.loc[df["title"]=="The Catcher in the Rye","copies"]="5"
+        # df.to_csv("Books.csv",index=False)
+        # print(df)
         #############################log############
 
     def appand(self, filename: str): ################### add a book to some file (ava.csv or loaned.csv)

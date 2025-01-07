@@ -44,8 +44,14 @@ class Librarian(Person):
         self.__password = hashlib.sha256(password.encode()).hexdigest()#############33
         self.add_user()########################
 
-
-
+    # def search_book_title(self, text):
+    # # need to fine all books that there title starts with text
+    # def search_book_auther(self, text):
+    # #need to fine all books that there title starts with text
+    # def search_book_year(self, text):
+    # # need to fine all books that there title starts with text
+    # def search_book_genre(self, text):
+    # # need to fine all books that there title starts with text
 
     #def add_book(self,num_of_copies):
         ####if exist add copies if not create new book
@@ -65,6 +71,17 @@ class Librarian(Person):
 
 
 
+
+
+
+
+
+
+
+
+
+
+
     def get_user_name(self):
         return self.__user_name
     def get_is_librarian(self):
@@ -73,6 +90,16 @@ class Librarian(Person):
         return self.__password
     def __str__(self):
         return self.get_name()+' '+str(self.get_age())+' '+self.get_user_name()+ ' '+self.get_password()
+
+
+
+
+
+
+
+
+
+
 
 
     @classmethod
