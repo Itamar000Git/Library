@@ -1,16 +1,12 @@
 import Book
-import Person
+import Librarian
 import csv
-import pandas as pd
-from Person import Customer
-from Person import Person
-from Person import Librarian
+
+import Gui_lib
+from Librarian import Librarian
 from Book import BookFactory
-from Person import Librarian
-
 import pandas as pd
-
-
+import Gui_lib
 
 
 
@@ -19,6 +15,7 @@ import pandas as pd
 def main():
 
     Librarian.init_library()
+    Gui_lib.maingui()
 
     # b1= Book.BookFactory.creat_book("The Hobbit", "J.R.R. Tolkien", "Fantasy", 4, 1937)
     # b1 = Book.BookFactory.creat_book("The Hobbit", "J.R.R. Tolkien", "Fantasy", 4, 1937)
