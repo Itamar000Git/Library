@@ -11,10 +11,26 @@ class search_book_title(SearchStrategy):
     def search(self,text,books_list):
         global optional_results
         optional_results = [s for s in books_list if s.startswith(text,"title")]
-        print("Matching strings:", optional_results)
         return optional_results
 
+class search_book_author(SearchStrategy):
+    def search(self,text,books_list):
+        global optional_results
+        optional_results = [s for s in books_list if s.startswith(text,"author")]
 
+        return optional_results
+
+class search_book_genre(SearchStrategy):
+    def search(self,text,books_list):
+        global optional_results
+        optional_results = [s for s in books_list if s.startswith(text,"genre")]
+        return optional_results
+
+class search_book_year(SearchStrategy):
+    def search(self,text_int,books_list):
+        global optional_results
+        optional_results = [s for s in books_list if s.startswith(str(text_int),"year")]
+        return optional_results
 
 
 

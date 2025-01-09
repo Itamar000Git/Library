@@ -1,5 +1,6 @@
 import unittest
 
+import Librarian
 from Librarian import *
 
 
@@ -34,30 +35,22 @@ class MyTestCase(unittest.TestCase):
         self.assertFalse(check_password(l2.get_password(),"Dan12"))
         self.assertTrue(check_password(l2.get_password(), "ben21"))
 
-    #def test_removed_loaned_book(self):#################3
+    def test_removed_loaned_book(self):#################3
 
-    # def test_add(self):
-    #     self.assertEqual(self.calc.add(1, 2), 3)
-    #     self.assertEqual(self.calc.add(-1, 1), 0)
-    #     self.assertEqual(self.calc.add(-1, -1), -2)
-    #
-    # def test_subtract(self):
-    #     self.assertEqual(self.calc.subtract(10, 5), 5)
-    #     self.assertEqual(self.calc.subtract(-1, 1), -2)
-    #     self.assertEqual(self.calc.subtract(-1, -1), 0)
-    #
-    # def test_multiply(self):
-    #     self.assertEqual(self.calc.multiply(3, 3), 9)
-    #     self.assertEqual(self.calc.multiply(-1, 1), -1)
-    #     self.assertEqual(self.calc.multiply(-1, -1), 1)
-    #
-    # def test_divide(self):
-    #     self.assertEqual(self.calc.divide(10, 2), 5)
-    #     self.assertEqual(self.calc.divide(-10, 2), -5)
-    #     self.assertEqual(self.calc.divide(0, 1), 0)
-    #
-    #     with self.assertRaises(ValueError):  # Check for division by zero
-    #         self.calc.divide(10, 0)
+        Librarian.init_library()
+        result=remove_book("1984")
+        self.assertTrue(result=="loaned")
+
+        new_b=["test","myself","Fantasy",2,2005]
+        add_book(new_b)
+        result=remove_book("test")
+        self.assertTrue(result=="found")
+
+        result=remove_book("not exist book")
+        self.assertTrue(result=="not found")
+
+    #def test_add(self):
+
 
 
 

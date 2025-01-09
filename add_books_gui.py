@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import messagebox
 
 import Gui_menu
-from Librarian import add_book
+from Librarian import add_book, validate_non_empty_data, validate_input
 
 
 def add_book_to_lib():
@@ -36,33 +36,45 @@ def add_book_to_lib():
     year_entry.pack(pady=1)
     new_book = []
     def submit():
-        title_input = title_entry.get()
-        new_book.append(str(title_input))
-        print(f"Entered book title: {title_input}")
+        try:
 
-        author_input = author_entry.get()
-        new_book.append(str(author_input))
-        print(f"Entered book author: {author_input}")
+            title_input = title_entry.get()
+            validate_non_empty_data(title_input)
+            new_book.append(str(title_input))
+            print(f"Entered book title: {title_input}")
 
-        genre_input = genre_entry.get()
-        new_book.append(str(genre_input))
-        print(f"Entered book genre: {genre_input}")
+            author_input = author_entry.get()
+            validate_non_empty_data(author_input)
+            new_book.append(str(author_input))
+            print(f"Entered book author: {author_input}")
 
-        copies_input = copies_entry.get()
-        new_book.append(int(copies_input)) #####################need to make sur its int
-        print(f"Entered book copies: {copies_input}")
+            genre_input = genre_entry.get()
+            validate_non_empty_data(genre_input)
+            new_book.append(str(genre_input))
+            print(f"Entered book genre: {genre_input}")
 
-        year_input = year_entry.get()
-        new_book.append(int(year_input))##################### need to check validate
-        print(f"Entered book year: {year_input}")
-        b=add_book(new_book)
-        new_book.clear()
-        if b == "new":
-            messagebox.showinfo("Success", "Book added successfully")
-        elif b == "exist":
-            messagebox.showinfo("Success", "Book book already exists, another copy added")
-        else:
-            messagebox.showerror("Error", "Book not added")
+            copies_input = copies_entry.get()
+            validate_input(int(copies_input),"copies")
+            new_book.append(int(copies_input)) #####################need to make sur its int
+            print(f"Entered book copies: {copies_input}")
+
+            year_input = year_entry.get()
+            validate_input(int(year_input),"year")
+            new_book.append(int(year_input))##################### need to check validate
+            print(f"Entered book year: {year_input}")
+            b=add_book(new_book)
+            new_book.clear()
+            if b == "new":
+                messagebox.showinfo("Success", "Book added successfully")
+            elif b == "exist":
+                messagebox.showinfo("Success", "Book book already exists, another copy added")
+            else:
+                messagebox.showerror("Error", "Book not added")
+        except ValueError as e:
+            print(e)
+            messagebox.showerror("Error", e)
+            add_win.destroy()
+            add_book_to_lib()
         add_win.destroy()
         Gui_menu.menu_window()
 

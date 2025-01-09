@@ -7,6 +7,7 @@ from Gui_sign_in_sign_up import *
 from Librarian import *
 
 def exit():########################################333
+
     root.destroy()
     exit()
 

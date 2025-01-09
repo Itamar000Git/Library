@@ -99,11 +99,19 @@ def check_user_name(user_name: str):
 
     return False
 
-def validate_input(a):
-    if not isinstance(a, int):
-        raise TypeError("Both inputs must be integers.")
-    elif a < 0 or a > 120:
-        raise ValueError("Age must be between 0 and 120.")
+def validate_input(a,type):
+    if len(str(a)) == 0:
+        raise ValueError("There are empty fields")
+    elif not isinstance(a, int):
+        raise ValueError(f"{type} input must be integers.")
+    elif type == "age":
+        if a < 0 or a>120:
+            raise ValueError("Age must be between 0 and 120.")
+    elif type == "copies":
+        if a < 0:
+            raise ValueError("Copies must be greater than zero.")
+
+
 
 def check_password(user_input,user_ditailes):
     for i in librarian_list:
@@ -180,32 +188,23 @@ def update_files_from_list(updated_list,file_name):
 def remove_book(title):
     for i in books_list:
         if i.get_title() == title:
-            if i.get_available_copies() >0:
+            if i.get_available_copies()==i.get_copies():
                 books_list.remove(i)
                 if available_list.__contains__(i):
                     available_list.remove(i)
-                if loaned_list.__contains__(i):
-                    loaned_list.remove(i)
 
                 clear_rows_from_csv('available_books.csv')
-                clear_rows_from_csv('loaned_books.csv')
                 clear_rows_from_csv('books.csv')
-                update_files_from_list(loaned_list, "loaned_books.csv")
                 update_files_from_list(available_list, "available_books.csv")
                 update_files_from_list(books_list, "books.csv")
                 print("remove book")
                 return "found"
-            elif i.get_available_copies() ==0:
+            else:
                 return "loaned"
     print("book not found")
     return "not found"
 
 
-def search_book():
-    print("search book")
-
-def view_books():
-    print("view book")
 
 def lend_book():
     print("lend book")
@@ -213,5 +212,10 @@ def lend_book():
 def return_book():
     print("return book")
 
-def logout():
-    print("logout")
+def popular_books():
+    copy_list=[]
+    for i in books_list:
+        copy_list.append(i)
+    copy_list=sorted(copy_list,key=lambda book: book.get_popularity(),reverse=True)################################
+    print("popular books")
+    return copy_list

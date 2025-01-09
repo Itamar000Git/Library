@@ -42,7 +42,7 @@ def sign_up():
             user_input = age_entry.get()  #got the age
             validate_non_empty_data(user_input)
             try:
-                validate_input(int(user_input))
+                validate_input(int(user_input),"age")
                 new_user.append(user_input)
                 print(f"Entered age: {user_input}")
             except:

@@ -3,7 +3,7 @@ from tkinter import messagebox
 
 import Gui_menu
 import Librarian
-from Librarian import remove_book, validate_non_empty_data, view_books
+from Librarian import remove_book, validate_non_empty_data
 
 
 def view_books_from_lib():
