@@ -3,10 +3,17 @@ import pandas as pd
 import Book
 import Serarch_strategy
 from Book import BookFactory
-books_list = []
-librarian_list = []
-available_list=[]
-loaned_list=[]
+
+books_list = [] # List that contains al the books
+librarian_list = [] #List that contains all users
+available_list=[] #List that contains all available books
+loaned_list=[] #List that contains all loaned books
+
+
+'''
+This class represent all librarian (users) abilities.
+Contains init_library function that initial all files that need to initial.
+ Also contains an option to add a user to the "users.cvs" file after created.'''
 class Librarian:
 
     def __init__(self, name: str, age: int ,user_name: str, password: str):
@@ -22,6 +29,7 @@ class Librarian:
 
     def add_user(self):
         self.append("users.csv")
+    #Generic function that append to a given file the user object (librarian) with the asked format.
     def append(self, filename: str):####add an new user
         pd.options.display.max_columns = None  # Show all columns
         pd.options.display.width = 0
@@ -31,6 +39,8 @@ class Librarian:
         df = pd.concat([df, new_row_df], ignore_index=True)
         df.to_csv(filename, index=False)
 
+
+    #getters and setters
     def get_name(self):
         return self.__name
     def get_age(self):
@@ -46,18 +56,20 @@ class Librarian:
 
 
 
-
-    #def search_book(text):
+    '''
+    Initials all files that need to be init with the start values.
+    This function use iterator for extraction the values from the csv files.
+    '''
     @classmethod
     def init_library(cls):
         pd.options.display.max_columns = None
         pd.options.display.width = 0
-        clear_rows_from_csv('users.csv')
+        clear_rows_from_csv('users.csv')######################################need to delete
         clear_rows_from_csv ('available_books.csv')
         clear_rows_from_csv('loaned_books.csv')
 
 
-        def_user=["1",1,"1","1"]
+        def_user=["1",1,"1","1"] #################test user, can be deleted
         def_user[3]=hashlib.sha256(def_user[3].encode()).hexdigest()
         l1=Librarian.create_librarian(def_user)
 
@@ -66,10 +78,8 @@ class Librarian:
         print(df)
         df=pd.read_csv("books.csv")
         print(df)
-        for index , row in df.iterrows():
-            #print(row)
+        for index , row in df.iterrows(): #use iterator for extracting the needed information
             b1= Book.BookFactory.creat_book(row['title'], row['author'], row['is_loaned'], row['genre'], row['copies'], row['year'])
-            #print(f"{index}:{b1}")
             books_list.append(b1)
 
         for i in books_list: # sorted ava.csv and loaned.csv
@@ -82,6 +92,7 @@ class Librarian:
             else:
                 print(f" something wrong: {i.__str__()}")
 
+    #Function that creates user from list
     @classmethod
     def create_librarian(cls,new_user):
         librarian =Librarian(new_user[0],new_user[1],new_user[2],new_user[3])
@@ -90,15 +101,14 @@ class Librarian:
         return librarian
 
 
-
+#Function that use iterator to check if the given username already registered.
 def check_user_name(user_name: str):
     for i in librarian_list:
         if i.get_user_name() == user_name:
-            #print("this user is already used")
             return True
-
     return False
 
+#Function that check multiple exceptions using the value of "type" string.
 def validate_input(a,type):
     if len(str(a)) == 0:
         raise ValueError("There are empty fields")
@@ -112,7 +122,7 @@ def validate_input(a,type):
             raise ValueError("Copies must be greater than zero.")
 
 
-
+#This function checks if a given hashed password match to the saved password in the user.csv file.
 def check_password(user_input,user_ditailes):
     for i in librarian_list:
         if i.get_user_name() == user_ditailes:
@@ -123,6 +133,7 @@ def check_password(user_input,user_ditailes):
         else:
             print(" something wrong")
 
+#This function raise an exception if the field is empty.
 def validate_non_empty_data(data):
     if not data:
         raise ValueError("Input cannot be empty")

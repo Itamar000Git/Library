@@ -10,7 +10,10 @@ from remove_book import remove_book_from_lib
 from search_book_gui import search_book_in_lib
 from view_books_gui import view_books_from_lib
 
-
+'''
+Gui function that represent the menu window after signing in.
+Support "back" function.
+Split to different Function for each choice'''
 def menu_window():
     menu_win = tk.Tk()
     menu_win.title("menu")
@@ -69,7 +72,7 @@ def menu_window():
 
     def back_to_main():
         menu_win.destroy()
-        Gui_lib.root.deiconify()  ##############################################
+        Gui_lib.root.deiconify()
 
     back_button = tk.Button(menu_win, text="Back", font=("David", 12), command=back_to_main, bg="#FFA500", fg="white")
     back_button.pack(pady=1)

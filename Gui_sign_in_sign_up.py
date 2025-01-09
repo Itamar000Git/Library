@@ -3,7 +3,11 @@ import Gui_menu
 from Gui_lib import *
 from Gui_menu import *
 
-
+'''
+Function that represent register a new user to the library system.
+The function have 4 entries with all the essential details for creating a user.
+In the submit part "sign_up" support an exception like Invalid input (empty field or char as age)
+'''
 def sign_up():
     Gui_lib.root.withdraw()
     second_win = tk.Toplevel()
@@ -34,7 +38,7 @@ def sign_up():
     def submit():   # after this function we can create user object
         try:
             user_input = name_entry.get()  # got ful name
-            validate_non_empty_data(user_input)
+            validate_non_empty_data(user_input) #raises an exception if field is empty
 
             new_user.append(user_input)
             print(f"Entered full name: {user_input}")
@@ -42,7 +46,7 @@ def sign_up():
             user_input = age_entry.get()  #got the age
             validate_non_empty_data(user_input)
             try:
-                validate_input(int(user_input),"age")
+                validate_input(int(user_input),"age") #make sur it's int, not empty and reasonable age.
                 new_user.append(user_input)
                 print(f"Entered age: {user_input}")
             except:
@@ -65,7 +69,7 @@ def sign_up():
 
             user_input=pass_entry.get()
             validate_non_empty_data(user_input)
-            user_input =hashlib.sha256(user_input.encode()).hexdigest()
+            user_input =hashlib.sha256(user_input.encode()).hexdigest()#hash the password as we got it.
 
             new_user.append(user_input)
             print(f"Entered password: {user_input}")
@@ -90,7 +94,11 @@ def sign_up():
     back_button = tk.Button(second_win, text="Back", font=("David", 12),command=back_to_main, bg="#FFA500", fg="white")
     back_button.pack(pady=1)
 
-
+'''
+Gui function that represent the signing in window.
+The function have two entries and verify if the user that signing in already sign up, 
+Also make sure that the password is correct.
+The function support invalid input exceptions.'''#################################################need to add try and except
 def sign_in():
 
     Gui_lib.root.withdraw()
@@ -113,10 +121,10 @@ def sign_in():
 
 
     user_ditailes=[]
-    def submit(): ## in the end of this function i need to hash the password and check if match
+    def submit():
 
         user_input = user_name_entry.get()  # got username
-        if check_user_name(user_input):
+        if check_user_name(user_input): #Checkes if the user name exist, if not raise an exception.
             user_ditailes.append(user_input)
             print(f"Entered user name: {user_input}")
         else:
@@ -125,8 +133,8 @@ def sign_in():
             sign_in()
             return
 
-        user_input = hashlib.sha256(password_entry.get().encode()).hexdigest()  # got the password
-        if (check_password(user_input, user_ditailes[0])):
+        user_input = hashlib.sha256(password_entry.get().encode()).hexdigest()  # got the password, and encrypt it right away.
+        if (check_password(user_input, user_ditailes[0])):#checkes if the password matches to the username.
             user_ditailes.append(user_input)
             print(f"Entered password: {user_input}")
         else:

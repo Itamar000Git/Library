@@ -4,7 +4,10 @@ from tkinter import messagebox
 import Gui_menu
 from Librarian import add_book, validate_non_empty_data, validate_input
 
-
+'''
+Gui window that implement adding book function.
+The function opens 5 entry's and keep the value when we click the submit button.
+The window support "back" function.'''
 def add_book_to_lib():
     add_win = tk.Tk()
     add_win.title("new book")
@@ -35,9 +38,10 @@ def add_book_to_lib():
     year_entry = tk.Entry(add_win, font=("David", 12), width=20)
     year_entry.pack(pady=1)
     new_book = []
+    # When we click on submit al the values from the entries insert to the variables.
+    #the function take care exceptions like invalid input.
     def submit():
         try:
-
             title_input = title_entry.get()
             validate_non_empty_data(title_input)
             new_book.append(str(title_input))
@@ -62,7 +66,9 @@ def add_book_to_lib():
             validate_input(int(year_input),"year")
             new_book.append(int(year_input))##################### need to check validate
             print(f"Entered book year: {year_input}")
-            b=add_book(new_book)
+
+
+            b=add_book(new_book) #send as input a list that include all the book fields. "b" is string that help us indicate what add book done.
             new_book.clear()
             if b == "new":
                 messagebox.showinfo("Success", "Book added successfully")
@@ -73,9 +79,9 @@ def add_book_to_lib():
         except ValueError as e:
             print(e)
             messagebox.showerror("Error", e)
-            add_win.destroy()
+            add_win.destroy() #if there is any problem close the specific window and go back to the start
             add_book_to_lib()
-        add_win.destroy()
+        add_win.destroy() # if we finished the process of adding book
         Gui_menu.menu_window()
 
 
@@ -85,7 +91,7 @@ def add_book_to_lib():
 
     def back_to_main():
         add_win.destroy()
-        Gui_menu.menu_window() ##############################################
+        Gui_menu.menu_window()
 
     back_button = tk.Button(add_win, text="Back", font=("David", 12), command=back_to_main, bg="#FFA500", fg="white")
     back_button.pack(pady=1)
