@@ -5,7 +5,7 @@ import Gui_menu
 import Librarian
 import view_books_gui
 from Librarian import *
-from Librarian import remove_book, validate_non_empty_data
+#from Librarian import remove_book, validate_non_empty_data
 from view_books_gui import view_books_from_lib
 
 

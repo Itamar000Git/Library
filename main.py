@@ -3,7 +3,7 @@ import Librarian
 import csv
 
 import Gui_lib
-from Librarian import Librarian
+from Librarian import *
 from Book import BookFactory
 import pandas as pd
 import Gui_lib

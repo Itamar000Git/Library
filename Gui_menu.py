@@ -5,7 +5,7 @@ import Gui_lib
 import Librarian
 from Librarian import *
 from add_books_gui import add_book_to_lib
-from lend_return_boos_gui import lend_books_from_lib, return_books_from_lib
+from lend_return_book_gui import *
 from popular_books_gui import popular_books_from_lib
 from remove_book import remove_book_from_lib
 from search_book_gui import search_book_in_lib

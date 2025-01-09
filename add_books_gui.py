@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import messagebox
 
 import Gui_menu
-from Librarian import add_book, validate_non_empty_data, validate_input
+from Librarian import *
 
 '''
 Gui window that implement adding book function.

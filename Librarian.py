@@ -4,6 +4,8 @@ import Book
 import Serarch_strategy
 from Book import BookFactory
 
+
+
 books_list = [] # List that contains al the books
 librarian_list = [] #List that contains all users
 available_list=[] #List that contains all available books
@@ -125,6 +127,9 @@ def validate_input(a,type):
     elif type == "copies":
         if a < 0:
             raise ValueError("Copies must be greater than zero.")
+    elif type == "phone":
+        if len(str(a)) != 9:
+            raise ValueError("Phone number must be 10 digits and start with 0.")
 
 
 #This function checks if a given hashed password match to the saved password in the user.csv file.
@@ -233,8 +238,34 @@ def remove_book(title):
 
 
 
-def lend_book():
-    print("lend book")
+def lend_book(title):
+    from person_details_gui import get_person_details
+    st=Serarch_strategy.search_book_title()
+    optional_results=Serarch_strategy.search_book_title.search(st,title ,books_list)
+    for i in optional_results:
+        if i.get_title() == title:
+            if i.get_available_copies() > 0:
+                i.set_available_copies(i.get_available_copies()-1)
+                if i.get_available_copies()==0:
+                    i.set_is_loaned("Yes")
+                    loaned_list.append(i)
+                    available_list.remove(i)
+                    update_files_from_list(loaned_list, "loaned_books.csv")
+                    update_files_from_list(available_list, "available_books.csv")
+                    update_files_from_list(books_list, "books.csv")
+                    return "done"
+
+            else:
+                #person_dits=[]
+                get_person_details(i)
+                # mystr=str(person_dits[0])+''+str(person_dits[1])
+                # i.get_waiting_list().append(mystr)
+                # print(i.get_waiting_list())
+
+                return "loaned"
+    print("book not found")
+    return "book not found"
+
 
 def return_book():
     print("return book")

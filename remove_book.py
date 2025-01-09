@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import messagebox
 
 import Gui_menu
-from Librarian import remove_book, validate_non_empty_data
+from Librarian import *
 
 
 def remove_book_from_lib():

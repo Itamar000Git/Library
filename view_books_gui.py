@@ -5,7 +5,7 @@ import Gui_menu
 import Librarian
 import popular_books_gui
 from popular_books_gui import *
-from Librarian import remove_book, validate_non_empty_data
+from Librarian import *
 
 def view_all_books():
     view_all_books_win = tk.Tk()

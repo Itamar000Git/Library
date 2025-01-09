@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import messagebox
 
 import Gui_menu
-from Librarian import remove_book, validate_non_empty_data, lend_book
+from Librarian import validate_non_empty_data, lend_book, validate_input
 
 
 def lend_books_from_lib():
@@ -18,8 +18,9 @@ def lend_books_from_lib():
 
     def submit():
 
-        title_input = title_entry.get()
+
         try:
+            title_input = title_entry.get()
             validate_non_empty_data(title_input)
         except ValueError as e:
             messagebox.showerror("Error", e)
@@ -30,6 +31,10 @@ def lend_books_from_lib():
 
 
         print(f"Entered book title: {title_input}")
+        lend_win.withdraw()
+        lend_book(title_input)
+
+
         # b=remove_book(title_input)
         # if b=="found":
         #     messagebox.showinfo("Success", "Book successfully removed")
@@ -38,7 +43,7 @@ def lend_books_from_lib():
         # elif b=="loaned":
         #     messagebox.showerror("Error", "Book loaned")
         lend_win.destroy()
-        Gui_menu.menu_window()
+        #Gui_menu.menu_window()
 
 
     submit_button = tk.Button(lend_win, text="Submit", font=("David", 12), command=submit, bg="#4CAF50", fg="white")
@@ -78,6 +83,8 @@ def return_books_from_lib():
 
 
         print(f"Entered book title: {title_input}")
+
+
         # b=remove_book(title_input)
         # if b=="found":
         #     messagebox.showinfo("Success", "Book successfully removed")
@@ -98,3 +105,4 @@ def return_books_from_lib():
 
     back_button = tk.Button(return_win, text="Back", font=("David", 12), command=back_to_main, bg="#FFA500", fg="white")
     back_button.pack(pady=1)
+
