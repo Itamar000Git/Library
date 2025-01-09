@@ -3,8 +3,10 @@ from tkinter import messagebox
 
 import Gui_menu
 import Librarian
+import view_books_gui
 from Librarian import *
 from Librarian import remove_book, validate_non_empty_data
+from view_books_gui import view_books_from_lib
 
 
 def popular_books_from_lib():
@@ -34,7 +36,7 @@ def popular_books_from_lib():
 
     def back_to_main():
         popular_books_win.destroy()
-        Gui_menu.menu_window()
+        view_books_gui.view_books_from_lib()
 
     back_button = tk.Button(popular_books_win, text="Back", font=("David", 12), command=back_to_main, bg="#FFA500", fg="white")
     back_button.pack(pady=1)

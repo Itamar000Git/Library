@@ -22,7 +22,7 @@ class Librarian:
         self.__user_name = user_name
         self.__is_librarian = True
         self.__password = password
-        self.add_user()
+        #
 
 
 
@@ -52,7 +52,7 @@ class Librarian:
     def get_password(self):
         return self.__password
     def __str__(self):
-        return self.get_name()+' '+str(self.get_age())+' '+self.get_user_name()+ ' '+self.get_password()
+        return self.get_name() +' '+ self.get_age() +' '+self.get_user_name()+ ' '+self.get_password()
 
 
 
@@ -64,18 +64,23 @@ class Librarian:
     def init_library(cls):
         pd.options.display.max_columns = None
         pd.options.display.width = 0
-        clear_rows_from_csv('users.csv')######################################need to delete
+        #clear_rows_from_csv('users.csv')######################################
         clear_rows_from_csv ('available_books.csv')
         clear_rows_from_csv('loaned_books.csv')
 
 
-        def_user=["1",1,"1","1"] #################test user, can be deleted
-        def_user[3]=hashlib.sha256(def_user[3].encode()).hexdigest()
-        l1=Librarian.create_librarian(def_user)
+        # def_user=["1",1,"1","1"] #################test user, can be deleted
+        # def_user[3]=hashlib.sha256(def_user[3].encode()).hexdigest()
+        # l1=Librarian.create_librarian(def_user)
 
 
         df=pd.read_csv("users.csv")
         print(df)
+        for index, row in df.iterrows():
+            new_user =[row['name'], row['age'], row['username'], row['password']]
+            l1= Librarian(new_user[0], new_user[1], new_user[2], new_user[3])
+            librarian_list.append(l1)
+
         df=pd.read_csv("books.csv")
         print(df)
         for index , row in df.iterrows(): #use iterator for extracting the needed information
@@ -97,7 +102,7 @@ class Librarian:
     def create_librarian(cls,new_user):
         librarian =Librarian(new_user[0],new_user[1],new_user[2],new_user[3])
         librarian_list.append(librarian)
-        print(librarian)
+        librarian.add_user()
         return librarian
 
 
@@ -139,7 +144,18 @@ def validate_non_empty_data(data):
         raise ValueError("Input cannot be empty")
     return data
 
+'''
+Add_book function implements the add book methodology.
+The function use title search strategy, and implement in on the title of the new book that we want to add.
+If we got results it's means that in the library may have this book (or maybe another book that starts with the same name).
+For all results we check if one of them identical.
 
+
+#### keep working######
+
+
+
+'''
 def add_book(book_dit_list):
     #check if it's a new book or old one
     st=Serarch_strategy.search_book_title()
