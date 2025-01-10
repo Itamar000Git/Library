@@ -2,8 +2,8 @@ import tkinter as tk
 from tkinter import messagebox
 
 import Gui_menu
-from Librarian import validate_non_empty_data, lend_book, validate_input, update_files_from_list, loaned_list, \
-    available_list, books_list
+from Librarian import validate_non_empty_data, lend_book, validate_input, loaned_list, available_list, books_list, \
+    update_files_from_list
 
 
 def get_person_details(book):
@@ -49,8 +49,15 @@ def get_person_details(book):
         per_dict={str(person_dits[0]):str(person_dits[1])}
 
         #mystr=str(person_dits[0])+' : '+str(person_dits[1]+',')
+        for i in book.get_waiting_list(): ############################################
+            if i == 'nan':
+                book.get_waiting_list().remove(i)
         book.get_waiting_list().append(per_dict)
+
         #print(book.get_waiting_list())
+        # write_objects_to_csv(loaned_list, "loaned_books.csv")
+        # write_objects_to_csv(available_list, "available_books.csv")
+        # write_objects_to_csv(books_list, "books.csv")
         update_files_from_list(loaned_list, "loaned_books.csv")
         update_files_from_list(available_list, "available_books.csv")
         update_files_from_list(books_list, "books.csv")

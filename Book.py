@@ -15,7 +15,10 @@ class Book(ABC):
         self.__year = year
         self.__is_loaned = is_loaned
         self.__available_copies = available
-        self.__popularity =(copies - available) + waiting_list.__len__()
+        if waiting_list:
+            self.__popularity =(copies - available) + waiting_list.__len__()
+        else:
+            self.__popularity = (copies - available)
         self.__waiting_list=waiting_list
 
 
@@ -49,7 +52,13 @@ class Book(ABC):
         pd.options.display.max_columns = None  # Show all columns
         pd.options.display.width = 0
         df = pd.read_csv(filename)
-        new_row = {'title':self.get_title(), 'author':str(self.get_author()),'is_loaned':self.get_is_loaned(),'copies':self.get_copies(),'available':self.get_available_copies(),'waiting list': self.get_waiting_list().__str__(),'genre':self.get_genre(),'year':self.get_year()}
+        if self.get_waiting_list().__str__() == "['nan']" or self.get_waiting_list().__str__() == "NaN" : #####################
+            new_row = {'title': self.get_title(), 'author': str(self.get_author()), 'is_loaned': self.get_is_loaned(),
+                       'copies': self.get_copies(), 'available': self.get_available_copies(),
+                       'waiting list': None, 'genre': self.get_genre(), 'year': self.get_year()}
+        else:
+            new_row = {'title':self.get_title(), 'author':str(self.get_author()),'is_loaned':self.get_is_loaned(),'copies':self.get_copies(),'available':self.get_available_copies(),'waiting list':self.get_waiting_list(),'genre':self.get_genre(),'year':self.get_year()}
+
 
         new_row_df = pd.DataFrame([new_row])
         df = pd.concat([df, new_row_df], ignore_index=True)
@@ -115,8 +124,8 @@ class Book(ABC):
         return self.__popularity
 
 
-    def set_is_loaned(self,is_loaned):
-        self.__is_loaned = is_loaned
+    def set_is_loaned(self,value):##################
+        self.__is_loaned = value
     def set_popularity(self,popularity):
         self.__popularity=popularity
     def set_available_copies(self,available_copies):

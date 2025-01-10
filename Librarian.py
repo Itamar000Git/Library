@@ -87,20 +87,27 @@ class Librarian:
         print(df)
 
         for index , row in df.iterrows(): #use iterator for extracting the needed information
-            waiting_list = str(row['waiting list']).split(',')
+            if row['waiting list'] != "[]" and row['waiting list'] != "NaN":
+                waiting_list = str(row['waiting list']).split(',')
+            else:
+                waiting_list = ""
             #print(waiting_list.__str__())
-            b1= Book.BookFactory.creat_book(row['title'], row['author'], row['is_loaned'], row['genre'], row['copies'],row['available'],waiting_list[:], row['year'])
+            b1= Book.BookFactory.creat_book(row['title'], row['author'], row['is_loaned'], row['genre'], row['copies'],row['available'],waiting_list, row['year'])#############
             books_list.append(b1)
 
         for i in books_list: # sorted ava.csv and loaned.csv
             if i.get_is_loaned() == "Yes":
                 loaned_list.append(i)
-                i.append("loaned_books.csv")
+                #i.append("loaned_books.csv")
             elif i.get_is_loaned() == "No":
                 available_list.append(i)
-                i.append("available_books.csv")
+                #i.append("available_books.csv")
             else:
                 print(f" something wrong: {i.__str__()}")
+        # write_objects_to_csv(available_list,"available_books.csv")
+        # write_objects_to_csv(loaned_list,"loaned_books.csv")
+        update_files_from_list(available_list,"available_books.csv")
+        update_files_from_list(loaned_list,"loaned_books.csv")
 
     #Function that creates user from list
     @classmethod
@@ -190,17 +197,21 @@ def add_book(book_dit_list):
 
                ###############need to update ava.csv
                     #update_files_from_list(available_list, "available_books.csv")
-                update_files(i,"books.csv")
-                update_files(i,"available_books.csv")
-                update_files(i,"loaned_books.csv")
+                update_files_from_list(books_list,"books.csv")
+                #write_objects_to_csv(books_list,"books.csv")#####################################
+                #update_files(i,"books.csv")
+                #update_files(i,"available_books.csv")
+                #update_files(i,"loaned_books.csv")
                 return "exist"
-    empty_list=[]
-    b1=BookFactory.creat_book(book_dit_list[0], book_dit_list[1],"No", book_dit_list[2], book_dit_list[3],book_dit_list[3],empty_list, book_dit_list[4])
+    #empty_list=[]
+    b1=BookFactory.creat_book(book_dit_list[0], book_dit_list[1],"No", book_dit_list[2], book_dit_list[3],book_dit_list[3],[], book_dit_list[4])#################
     print(f"New book added: {b1}")
     books_list.append(b1)
     available_list.append(b1)
-    b1.append("books.csv")
-    b1.append("available_books.csv")########################################
+    # b1.append("books.csv")
+    # b1.append("available_books.csv")########################################
+    update_files_from_list(books_list,"books.csv")
+    update_files_from_list(available_list,"available_books.csv")
     return "new"
 
 
@@ -210,13 +221,14 @@ def clear_rows_from_csv(file_path):
     df = df.iloc[:0]
     df.to_csv(file_path, index=False)
 
-def update_files(book,filename):
-    #book.append()###############################33
-    df=pd.read_csv(str(filename))
-    df.loc[df["title"]==book.get_title(),"copies"]=book.get_copies()
-    df.to_csv(filename,index=False)
-    print(df)
-    print("file updated")
+# def update_files(book,filename):
+#     #book.append()###############################33
+#     df=pd.read_csv(str(filename))
+#     df.loc[df["title"]==book.get_title(),"copies"]=book.get_copies()
+#     df.loc[df["title"]==book.get_title(),"available"]=book.get_available_copies()
+#     df.to_csv(filename,index=False)
+#     print(df)
+#     print("file updated")
 
 def update_files_from_list(updated_list,file_name):
     pd.options.display.max_columns = None  # Show all columns
@@ -225,8 +237,27 @@ def update_files_from_list(updated_list,file_name):
     for i in updated_list:
         i.append(file_name)
     df = pd.read_csv(file_name)
+
     print(f"####################################{file_name}###################################################")
-    print(df)
+    # print(df)
+
+
+
+# def write_objects_to_csv(objects_list, filename):
+#
+#     if not objects_list:
+#         raise ValueError("The objects_list is empty. Cannot write to CSV.")
+#
+#     object_dicts = []
+#     for obj in objects_list:
+#         filtered_dict = {k: v for k, v in obj.__dict__.items() if not (isinstance(v, list) and not v)}
+#         object_dicts.append(filtered_dict)
+#
+#     #object_dicts = [obj.__dict__ for obj in objects_list]
+#     df = pd.DataFrame(object_dicts)
+#     columns_name = ["title","author","is_loaned","available","copies","genre","year","waiting list"]
+#     df = df[columns_name]
+#     df.to_csv(filename, index=False)
 
 
 def remove_book(title):
@@ -239,6 +270,9 @@ def remove_book(title):
 
                 clear_rows_from_csv('available_books.csv')
                 clear_rows_from_csv('books.csv')
+
+                # write_objects_to_csv(available_list, "available_books.csv")
+                # write_objects_to_csv(books_list, "books.csv")
                 update_files_from_list(available_list, "available_books.csv")
                 update_files_from_list(books_list, "books.csv")
                 print("remove book")
@@ -263,12 +297,18 @@ def lend_book(title):
                     loaned_list.append(i)
                     available_list.remove(i)
 
+                    # write_objects_to_csv(loaned_list, "loaned_books.csv")
+                    # write_objects_to_csv(available_list, "available_books.csv")
+                    # write_objects_to_csv(books_list, "books.csv")
                     update_files_from_list(loaned_list, "loaned_books.csv")
                     update_files_from_list(available_list, "available_books.csv")
                     update_files_from_list(books_list, "books.csv")
 
                     return "done"
                 else:
+                    # write_objects_to_csv(loaned_list, "loaned_books.csv")
+                    # write_objects_to_csv(available_list, "available_books.csv")
+                    # write_objects_to_csv(books_list, "books.csv")
                     update_files_from_list(books_list, "books.csv")
                     update_files_from_list(loaned_list, "loaned_books.csv")
                     update_files_from_list(available_list, "available_books.csv")
