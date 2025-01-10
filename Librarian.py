@@ -1,10 +1,16 @@
 import hashlib
+from tkinter import messagebox
+
 import pandas as pd
 import Book
 import Serarch_strategy
 from Book import BookFactory
 
-
+'''
+Observer class, have an update method that binding inheritance classes to implement.'''
+class Observer:
+    def update(self, subject):
+        raise NotImplementedError("Subclasses must implement 'update' method.")
 
 books_list = [] # List that contains al the books
 librarian_list = [] #List that contains all users
@@ -16,7 +22,7 @@ loaned_list=[] #List that contains all loaned books
 This class represent all librarian (users) abilities.
 Contains init_library function that initial all files that need to initial.
  Also contains an option to add a user to the "users.cvs" file after created.'''
-class Librarian:
+class Librarian(Observer):
 
     def __init__(self, name: str, age: int ,user_name: str, password: str):
         self.__name = name
@@ -24,13 +30,16 @@ class Librarian:
         self.__user_name = user_name
         self.__is_librarian = True
         self.__password = password
-        #
+        self.notification=[]################################################
 
-
-
+    #implementation of the observer method.
+    def update(self, subject):############################################################
+        self.notification.append(subject)
+        print(f"{self.__name} have new notification.\n {subject}")
 
     def add_user(self):
         self.append("users.csv")
+
     #Generic function that append to a given file the user object (librarian) with the asked format.
     def append(self, filename: str):####add an new user
         pd.options.display.max_columns = None  # Show all columns
@@ -69,6 +78,9 @@ class Librarian:
         #clear_rows_from_csv('users.csv')######################################
         clear_rows_from_csv ('available_books.csv')
         clear_rows_from_csv('loaned_books.csv')
+
+        with open('log.txt', 'a') as logger:
+            logger.write("##############################system_open##################################\n")
 
 
         # def_user=["1",1,"1","1"] #################test user, can be deleted
@@ -160,8 +172,8 @@ def validate_non_empty_data(data):
     return data
 
 '''
-Add_book function implements the add book methodology.
-The function use title search strategy, and implement it on the title of the new book that we want to add.
+Add_book method implements the add book methodology.
+The method use title search strategy, and implement it on the title of the new book that we want to add.
 If we got results it's means that in the library may have this book (or maybe another book that starts with the same name).
 For all results we check if one of them identical.
 If this book have waiting list we let them know that we have available book.
@@ -179,6 +191,7 @@ def add_book(book_dit_list):
                 print("Book already exists , copy added")
                 if len(i.get_waiting_list())>0:
                     for j in range(i.get_available_copies()):
+                        notify_lib(f"The book {i.get_title()} has available copy for {i.get_waiting_list()[0]}.")
                         print(i.get_waiting_list()[0])#notification
                         i.remove_first()
                         print(i.get_waiting_list())
@@ -214,6 +227,12 @@ def add_book(book_dit_list):
     update_files_from_list(available_list,"available_books.csv")
     return "new"
 
+#This function implement the library observer with notifications that sent when a waited book is available.
+def notify_lib(notify):
+    for i in librarian_list:
+        i.update(notify)
+        print(i.notification)
+    messagebox.showinfo("Notification", "All librarian got notification!")
 
 #clear file if needed
 def clear_rows_from_csv(file_path):
@@ -230,36 +249,24 @@ def clear_rows_from_csv(file_path):
 #     print(df)
 #     print("file updated")
 
+#generic method that update a file from a given list.
 def update_files_from_list(updated_list,file_name):
     pd.options.display.max_columns = None  # Show all columns
     pd.options.display.width = 0
     clear_rows_from_csv(file_name)
     for i in updated_list:
         i.append(file_name)
-    df = pd.read_csv(file_name)
+    #df = pd.read_csv(file_name)
 
-    print(f"####################################{file_name}###################################################")
+    #print(f"####################################{file_name}###################################################")
     # print(df)
 
-
-
-# def write_objects_to_csv(objects_list, filename):
-#
-#     if not objects_list:
-#         raise ValueError("The objects_list is empty. Cannot write to CSV.")
-#
-#     object_dicts = []
-#     for obj in objects_list:
-#         filtered_dict = {k: v for k, v in obj.__dict__.items() if not (isinstance(v, list) and not v)}
-#         object_dicts.append(filtered_dict)
-#
-#     #object_dicts = [obj.__dict__ for obj in objects_list]
-#     df = pd.DataFrame(object_dicts)
-#     columns_name = ["title","author","is_loaned","available","copies","genre","year","waiting list"]
-#     df = df[columns_name]
-#     df.to_csv(filename, index=False)
-
-
+'''
+"remove_book" function represent the remove operation.
+When a librarian wants to eliminate a book from the library, first the method make sure that the book is exist.
+After that we need to check if there is any loaned copy from this book.
+For any "bad" option from above we raise an exception (in the call function).
+If all the copies available The method remove the book from the book list and updating the files.'''
 def remove_book(title):
     for i in books_list:
         if i.get_title() == title:
@@ -283,13 +290,16 @@ def remove_book(title):
     return "not found"
 
 
-
+'''
+'''
 def lend_book(title):
     from person_details_gui import get_person_details
     st=Serarch_strategy.search_book_title()
     optional_results=Serarch_strategy.search_book_title.search(st,title,books_list)
     for i in optional_results:
         if i.get_title() == title:
+            i.set_popularity(i.get_popularity()+1)
+            print(f"new popularity {i.get_popularity()} ")
             if i.get_available_copies() > 0:
                 i.set_available_copies(i.get_available_copies()-1)
                 if i.get_available_copies()==0:
@@ -325,6 +335,10 @@ def lend_book(title):
 def return_book():
     print("return book")
 
+
+'''
+This function sort the book list by their popularity field (highest first).
+This filed updating in the constructor , the loan and the return methods. '''
 def popular_books():
     copy_list=[]
     for i in books_list:
@@ -332,3 +346,5 @@ def popular_books():
     copy_list=sorted(copy_list,key=lambda book: book.get_popularity(),reverse=True)################################
     print("popular books")
     return copy_list
+
+

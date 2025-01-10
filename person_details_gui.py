@@ -7,7 +7,8 @@ from Librarian import validate_non_empty_data, lend_book, validate_input, loaned
 
 
 def get_person_details(book):
-    person_win = tk.Tk()
+    #person_win = tk.Tk()
+    person_win=tk.Toplevel()
     person_win.title("person details")
     person_win.geometry("300x300")
     person_win.config(bg="#f0f0f0")
@@ -52,8 +53,9 @@ def get_person_details(book):
         for i in book.get_waiting_list(): ############################################
             if i == 'nan':
                 book.get_waiting_list().remove(i)
-        book.get_waiting_list().append(per_dict)
 
+        book.get_waiting_list().append(per_dict)
+        messagebox.showinfo("info", f"You are listed to the waiting list successfully.")
         #print(book.get_waiting_list())
         # write_objects_to_csv(loaned_list, "loaned_books.csv")
         # write_objects_to_csv(available_list, "available_books.csv")

@@ -8,7 +8,8 @@ from Serarch_strategy import search_book_title, search_book_author, search_book_
 
 
 def search_book_in_lib():
-    search_books_win = tk.Tk()
+    #search_books_win = tk.Tk()
+    search_books_win=tk.Toplevel()
     search_books_win.title("Search book")
     search_books_win.geometry("300x390")
     search_books_win.config(bg="#f0f0f0")
@@ -23,8 +24,17 @@ def search_book_in_lib():
             result=title_stra.search(title_input, Librarian.books_list)
             for i in result:
                 print(i.__str__())
+            if len(result)>0: ############################################################################
+                with open('log.txt', 'a') as logger:
+                    logger.write(f"Search book {title_input} by name completed successfully\n")
+                view_search(result)
+            else:
+                with open('log.txt', 'a') as logger:
+                    logger.write(f"Search book {title_input} by name fail\n")
+                messagebox.showinfo(title="No result", message="No result")
+
+                search_book_in_lib() #######################################################################
             search_books_win.withdraw()
-            view_search(result)
         except ValueError as e:
             messagebox.showerror("Error", str(e))
             print(e)
@@ -44,9 +54,19 @@ def search_book_in_lib():
             result =  author_stra.search( author_input, Librarian.books_list)
             for i in result:
                 print(i.__str__())
+
+            if len(result)>0: ############################################################################
+                with open('log.txt', 'a') as logger:
+                    logger.write(f"Search book {author_input} by author completed successfully\n")
+                view_search(result)
+            else:
+                with open('log.txt', 'a') as logger:
+                    logger.write(f"Search book {author_input} by author fail\n")
+                messagebox.showinfo(title="No result", message="No result")###############################
+                search_book_in_lib()
             search_books_win.withdraw()
 
-            view_search(result)
+
         except ValueError as e:
             messagebox.showerror("Error", str(e))
             print(e)
@@ -63,13 +83,24 @@ def search_book_in_lib():
             result =  genre_stra.search( genre_input, Librarian.books_list)
             for i in result:
                 print(i.__str__())
+
+            if len(result) > 0:  ############################################################################
+                with open('log.txt', 'a') as logger:
+                    logger.write(f"Search book {genre_input} by genre completed successfully\n")
+                view_search(result)
+            else:
+                with open('log.txt', 'a') as logger:
+                    logger.write(f"Search book {genre_input} by genre fail\n")
+                messagebox.showinfo(title="No result", message="No result")################################
+                search_book_in_lib()
+
             search_books_win.withdraw()
 
-            view_search(result)
+
         except ValueError as e:
             messagebox.showerror("Error", str(e))
             print(e)
-            search_books_win.destroy()
+            search_books_win.withdraw()
             search_book_in_lib()
 
 
@@ -85,8 +116,18 @@ def search_book_in_lib():
             result =  year_stra.search( year_input, Librarian.books_list)
             for i in result:
                 print(i.__str__())
+
+            if len(result) > 0:  ############################################################################
+                with open('log.txt', 'a') as logger:
+                    logger.write(f"Search book {year_input} by year completed successfully\n")
+                view_search(result)
+            else:
+                with open('log.txt', 'a') as logger:
+                    logger.write(f"Search book {year_input} by year fail\n")
+                messagebox.showinfo(title="No result", message="No result")
+                search_book_in_lib()
+
             search_books_win.withdraw()
-            view_search(result)
         except ValueError as e:
             messagebox.showerror("Error", str(e))
             print(e)
@@ -148,6 +189,7 @@ def search_book_in_lib():
 
 def view_search(results):
     view_search_win = tk.Tk()
+    view_search_win=tk.Toplevel()
     view_search_win.title("Search results")
     view_search_win.geometry("600x620")
     view_search_win.config(bg="#f0f0f0")

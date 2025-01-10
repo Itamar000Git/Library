@@ -1,0 +1,185 @@
+##############################system_open##################################
+Displayed all books successfully
+Displayed borrowed books successfully
+Displayed available books successfully
+Displayed book by category successfully
+Displayed book by category successfully
+Displayed book by category successfully
+##############################system_open##################################
+book added successfully
+book borrowed successfully
+book borrowed fail
+book borrowed successfully
+book borrowed fail
+##############################system_open##################################
+##############################system_open##################################
+log out successful
+##############################system_open##################################
+log out successful
+##############################system_open##################################
+log out successful
+##############################system_open##################################
+log out successful
+##############################system_open##################################
+log out successful
+##############################system_open##################################
+##############################system_open##################################
+##############################system_open##################################
+##############################system_open##################################
+##############################system_open##################################
+##############################system_open##################################
+##############################system_open##################################
+##############################system_open##################################
+##############################system_open##################################
+##############################system_open##################################
+##############################system_open##################################
+Displayed available books successfully
+Displayed book by category successfully
+log out successful
+##############################system_open##################################
+##############################system_open##################################
+##############################system_open##################################
+registered successfully
+registered fail
+registered fail
+registered fail
+##############################system_open##################################
+logged in fail
+##############################system_open##################################
+logged in fail
+##############################system_open##################################
+logged in fail
+##############################system_open##################################
+logged in fail
+logged in fail
+##############################system_open##################################
+logged in fail
+##############################system_open##################################
+##############################system_open##################################
+logged in successfully
+##############################system_open##################################
+logged in successfully
+Displayed fail
+##############################system_open##################################
+logged in successfully
+displayed successfully
+##############################system_open##################################
+logged in successfully
+Displayed successfully
+log out successful
+##############################system_open##################################
+##############################system_open##################################
+logged in successfully
+book borrowed fail
+book added successfully
+Displayed all books successfully
+book added successfully
+##############################system_open##################################
+logged in successfully
+displayed successfully
+Displayed all books successfully
+displayed successfully
+book borrowed fail
+##############################system_open##################################
+logged in successfully
+book borrowed fail
+##############################system_open##################################
+logged in successfully
+book borrowed fail
+book borrowed fail
+book borrowed fail
+##############################system_open##################################
+logged in successfully
+book added successfully
+book added successfully
+book added successfully
+book borrowed fail
+##############################system_open##################################
+logged in successfully
+book borrowed fail
+##############################system_open##################################
+logged in successfully
+book borrowed fail
+displayed successfully
+Displayed all books successfully
+displayed successfully
+book borrowed fail
+displayed successfully
+book borrowed fail
+book borrowed fail
+book borrowed fail
+displayed successfully
+log out successful
+##############################system_open##################################
+logged in successfully
+displayed successfully
+##############################system_open##################################
+logged in successfully
+displayed successfully
+Displayed all books successfully
+book added successfully
+displayed successfully
+book borrowed successfully
+book borrowed successfully
+book borrowed fail
+book borrowed fail
+displayed successfully
+book borrowed fail
+displayed successfully
+displayed successfully
+Displayed all books successfully
+book borrowed fail
+displayed successfully
+book borrowed fail
+displayed successfully
+book borrowed fail
+displayed successfully
+##############################system_open##################################
+logged in fail
+logged in successfully
+displayed successfully
+##############################system_open##################################
+logged in successfully
+displayed successfully
+book added successfully
+displayed successfully
+book borrowed successfully
+book borrowed successfully
+displayed successfully
+book borrowed successfully
+displayed successfully
+##############################system_open##################################
+logged in successfully
+displayed successfully
+book borrowed successfully
+displayed successfully
+##############################system_open##################################
+##############################system_open##################################
+##############################system_open##################################
+##############################system_open##################################
+##############################system_open##################################
+##############################system_open##################################
+##############################system_open##################################
+##############################system_open##################################
+##############################system_open##################################
+##############################system_open##################################
+##############################system_open##################################
+logged in successfully
+displayed successfully
+book borrowed successfully
+displayed successfully
+book borrowed successfully
+displayed successfully
+##############################system_open##################################
+logged in successfully
+Displayed successfully
+Displayed successfully
+##############################system_open##################################
+logged in successfully
+displayed successfully
+Displayed available books successfully
+Displayed successfully
+Displayed successfully
+Displayed successfully
+##############################system_open##################################
+logged in successfully

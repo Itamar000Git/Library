@@ -9,7 +9,8 @@ Gui window that implement adding book function.
 The function opens 5 entry's and keep the value when we click the submit button.
 The window support "back" function.'''
 def add_book_to_lib():
-    add_win = tk.Tk()
+    #add_win = tk.Tk()
+    add_win=tk.Toplevel()
     add_win.title("new book")
     add_win.geometry("300x300")
     add_win.config(bg="#f0f0f0")
@@ -57,8 +58,8 @@ def add_book_to_lib():
             new_book.append(str(genre_input))
             print(f"Entered book genre: {genre_input}")
 
-            copies_input = copies_entry.get()
-            validate_input(int(copies_input),"copies")
+            copies_input = int(copies_entry.get())
+            validate_input(copies_input,"copies")
             new_book.append(int(copies_input)) #####################need to make sur its int
             print(f"Entered book copies: {copies_input}")
 
@@ -71,13 +72,21 @@ def add_book_to_lib():
             b=add_book(new_book) #send as input a list that include all the book fields. "b" is string that help us indicate what add book done.
             new_book.clear()
             if b == "new":
+                with open('log.txt', 'a') as logger:
+                    logger.write("book added successfully\n")
                 messagebox.showinfo("Success", "Book added successfully")
             elif b == "exist":
-                messagebox.showinfo("Success", "Book book already exists, another copy added")
+                with open('log.txt', 'a') as logger:
+                    logger.write("book added successfully\n")
+                messagebox.showinfo("Success", "Book already exists, another copy added")
             else:
+                with open('log.txt', 'a') as logger:
+                    logger.write("book added fail\n")
                 messagebox.showerror("Error", "Book not added")
         except ValueError as e:
             print(e)
+            with open('log.txt', 'a') as logger:
+                logger.write("book added fail\n")
             messagebox.showerror("Error", e)
             add_win.destroy() #if there is any problem close the specific window and go back to the start
             add_book_to_lib()

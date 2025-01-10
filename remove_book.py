@@ -6,7 +6,8 @@ from Librarian import *
 
 
 def remove_book_from_lib():
-    remove_win = tk.Tk()
+    #remove_win = tk.Tk()
+    remove_win=tk.Toplevel()
     remove_win.title("remove book")
     remove_win.geometry("300x300")
     remove_win.config(bg="#f0f0f0")

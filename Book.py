@@ -15,29 +15,30 @@ class Book(ABC):
         self.__year = year
         self.__is_loaned = is_loaned
         self.__available_copies = available
-        if waiting_list:
+        if waiting_list[0] != 'nan':
             self.__popularity =(copies - available) + waiting_list.__len__()
         else:
             self.__popularity = (copies - available)
         self.__waiting_list=waiting_list
 
 
+
     def remove_first(self):
         self.__waiting_list.remove(self.__waiting_list[0])
 
-    def request_to_loan(self):
-        if self.__available_copies >= 1:
-            self.__available_copies=self.__available_copies-1
-        else:
-            print("No available copies")
-            return False
+    # def request_to_loan(self):
+    #     if self.__available_copies >= 1:
+    #         self.__available_copies=self.__available_copies-1
+    #     else:
+    #         print("No available copies")
+    #         return False
 
-    #function that added copies and updated available field
-    def add_copies(self,num_of_copies):#just a new book copy not returned one
-        #maybe need to take in consider a new book
-        self.__copies=  self.__copies+num_of_copies
-        self.__available_copies= self.__available_copies+num_of_copies
-        print(f"Added {num_of_copies} copies of {self.__title}")
+    # #function that added copies and updated available field
+    # def add_copies(self,num_of_copies):#just a new book copy not returned one
+    #     #maybe need to take in consider a new book
+    #     self.__copies=  self.__copies+num_of_copies
+    #     self.__available_copies= self.__available_copies+num_of_copies
+    #     print(f"Added {num_of_copies} copies of {self.__title}")
 
 
 
@@ -59,10 +60,11 @@ class Book(ABC):
         else:
             new_row = {'title':self.get_title(), 'author':str(self.get_author()),'is_loaned':self.get_is_loaned(),'copies':self.get_copies(),'available':self.get_available_copies(),'waiting list':self.get_waiting_list(),'genre':self.get_genre(),'year':self.get_year()}
 
-
         new_row_df = pd.DataFrame([new_row])
         df = pd.concat([df, new_row_df], ignore_index=True)
         df.to_csv(filename, index=False)
+
+
     #Generic function that get object, text and string, the function checks if text is part of the one of the fields in the object.
     #The field that need to check with being chosen by the "search_by" string.
     def startswith(self,text,search_by):
@@ -256,15 +258,4 @@ class BookFactory:
         elif genre == "Science Fiction":
             return ScienceFiction(title, author,is_loaned, copies,available,waiting_list, year)
         else:
-            return Book(title, author,is_loaned,genre, copies,available,waiting_list, year)###################################33
-
-
-#def main():
-
-    # b1= BookFactory.creat_book("The Hobbit","J.R.R. Tolkien","Fantasy",4,1937)
-    # print(b1)
-
-
-
-# if __name__ == "__main__":
-#     main()
+            return Book(title, author,is_loaned,genre, copies,available,waiting_list, year)

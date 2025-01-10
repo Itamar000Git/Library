@@ -16,7 +16,8 @@ Gui function that represent the menu window after signing in.
 Support "back" function.
 Split to different Function for each choice'''
 def menu_window():
-    menu_win = tk.Tk()
+    #menu_win = tk.Tk()
+    menu_win=tk.Toplevel()
     menu_win.title("menu")
     menu_win.geometry("300x450")
     menu_win.config(bg="#f0f0f0")
@@ -25,7 +26,6 @@ def menu_window():
     def add_book_submit():
         menu_win.withdraw()
         add_book_to_lib()
-        #menu_win.deiconify()
     def remove_book_submit():
         menu_win.withdraw()
         remove_book_from_lib()
@@ -42,9 +42,16 @@ def menu_window():
         menu_win.withdraw()
         return_books_from_lib()
     def logout_submit():
-        menu_win.withdraw()
-        messagebox.showinfo("Logout", "Logged out")
-        Gui_lib.root.deiconify()
+        try:
+            menu_win.withdraw()
+            with open('log.txt', 'a') as logger:
+                logger.write("log out successful\n")
+            messagebox.showinfo("Logout", "Logged out")
+            Gui_lib.root.deiconify()
+        except:
+            messagebox.showerror("Logout", "Log out failed")
+            with open('log.txt', 'a') as logger:
+                logger.write("log out fail\n")
 
 
     Add_button = tk.Button(menu_win, text="Add Book", font=("David", 20),width=20,command = add_book_submit, bg="#4CAF50", fg="white")

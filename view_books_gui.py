@@ -9,88 +9,111 @@ from popular_books_gui import *
 
 
 def view_all_books():
-    view_all_books_win = tk.Tk()
-    view_all_books_win.title("Books list")
-    view_all_books_win.geometry("600x620")
-    view_all_books_win.config(bg="#f0f0f0")
-    entry_label = tk.Label(view_all_books_win, text="All Books list", font=("David", 12), bg="#f0f0f0")
-    entry_label.pack(pady=1)
+   # view_all_books_win = tk.Tk()
+   try:
+        view_all_books_win=tk.Toplevel()
+        view_all_books_win.title("Books list")
+        view_all_books_win.geometry("600x620")
+        view_all_books_win.config(bg="#f0f0f0")
+        entry_label = tk.Label(view_all_books_win, text="All Books list", font=("David", 12), bg="#f0f0f0")
+        entry_label.pack(pady=1)
 
-    text_widget = tk.Text(view_all_books_win, font=("David", 12), height=32, width=70)
-    text_widget.pack(pady=1)
+        text_widget = tk.Text(view_all_books_win, font=("David", 12), height=32, width=80)
+        text_widget.pack(pady=1)
 
-    text_widget.delete(1.0, tk.END)
-    i = 1
-    for item in books_list:
-        text_widget.insert(tk.END, f"{i}. {item}\n")
-        i += 1
+        text_widget.delete(1.0, tk.END)
+        i = 1
+        for item in books_list:
+            text_widget.insert(tk.END, f"{i}. {item}\n")
+            i += 1
 
-    def back_to_main():
-        view_all_books_win.destroy()
-        view_books_from_lib()
+        def back_to_main():
+            view_all_books_win.destroy()
+            view_books_from_lib()
 
-    back_button = tk.Button(view_all_books_win, text="Back", font=("David", 12), command=back_to_main, bg="#FFA500",
-                            fg="white")
-    back_button.pack(pady=1)
+        back_button = tk.Button(view_all_books_win, text="Back", font=("David", 12), command=back_to_main, bg="#FFA500",
+                                fg="white")
+        back_button.pack(pady=1)
+        with open('log.txt', 'a') as logger:
+            logger.write("Displayed all books successfully\n")
+   except:
+       with open('log.txt', 'a') as logger:
+           logger.write("Displayed all books fail\n")
 
 def view_available_books():
 
-    view_ava_books_win = tk.Tk()
-    view_ava_books_win.title("Available Books list")
-    view_ava_books_win.geometry("600x400")
-    view_ava_books_win.config(bg="#f0f0f0")
-    entry_label = tk.Label(view_ava_books_win, text="All available books", font=("David", 12), bg="#f0f0f0")
-    entry_label.pack(pady=1)
+    #view_ava_books_win = tk.Tk()
+    try:
+        view_ava_books_win=tk.Toplevel()
+        view_ava_books_win.title("Available Books list")
+        view_ava_books_win.geometry("600x400")
+        view_ava_books_win.config(bg="#f0f0f0")
+        entry_label = tk.Label(view_ava_books_win, text="All available books", font=("David", 12), bg="#f0f0f0")
+        entry_label.pack(pady=1)
 
-    text_widget = tk.Text(view_ava_books_win, font=("David", 12), height=20, width=70)
-    text_widget.pack(pady=1)
+        text_widget = tk.Text(view_ava_books_win, font=("David", 12), height=20, width=80)
+        text_widget.pack(pady=1)
 
-    text_widget.delete(1.0, tk.END)
-    i = 1
-    for item in available_list:
-        text_widget.insert(tk.END, f"{i}. {item}\n")
-        i += 1
+        text_widget.delete(1.0, tk.END)
+        i = 1
+        for item in available_list:
+            text_widget.insert(tk.END, f"{i}. {item}\n")
+            i += 1
 
-    def back_to_main():
-        view_ava_books_win.destroy()
-        view_books_from_lib()
+        def back_to_main():
+            view_ava_books_win.destroy()
+            view_books_from_lib()
 
-    back_button = tk.Button(view_ava_books_win, text="Back", font=("David", 12), command=back_to_main, bg="#FFA500",fg="white")
-    back_button.pack(pady=1)
+        back_button = tk.Button(view_ava_books_win, text="Back", font=("David", 12), command=back_to_main, bg="#FFA500",fg="white")
+        back_button.pack(pady=1)
+
+        with open('log.txt', 'a') as logger:
+            logger.write("Displayed available books successfully\n")
+    except:
+        with open('log.txt', 'a') as logger:
+            logger.write("Displayed available books fail\n")
 
 
 
 
 def view_loaned_books():
 
-    view_loaned_books_win = tk.Tk()
-    view_loaned_books_win.title("Loaned Books list")
-    view_loaned_books_win.geometry("600x400")
-    view_loaned_books_win.config(bg="#f0f0f0")
-    entry_label = tk.Label(view_loaned_books_win, text="All loaned books", font=("David", 12), bg="#f0f0f0")
-    entry_label.pack(pady=1)
+    #view_loaned_books_win = tk.Tk()
+    try:
+        view_loaned_books_win=tk.Toplevel()
+        view_loaned_books_win.title("Loaned Books list")
+        view_loaned_books_win.geometry("600x400")
+        view_loaned_books_win.config(bg="#f0f0f0")
+        entry_label = tk.Label(view_loaned_books_win, text="All loaned books", font=("David", 12), bg="#f0f0f0")
+        entry_label.pack(pady=1)
 
-    text_widget = tk.Text(view_loaned_books_win, font=("David", 12), height=20, width=70)
-    text_widget.pack(pady=1)
+        text_widget = tk.Text(view_loaned_books_win, font=("David", 12), height=20, width=80)
+        text_widget.pack(pady=1)
 
-    text_widget.delete(1.0, tk.END)
-    i = 1
-    for item in loaned_list:
-        text_widget.insert(tk.END, f"{i}. {item}\n")
-        i += 1
+        text_widget.delete(1.0, tk.END)
+        i = 1
+        for item in loaned_list:
+            text_widget.insert(tk.END, f"{i}. {item}\n")
+            i += 1
 
-    def back_to_main():
-        view_loaned_books_win.destroy()
-        view_books_from_lib()
+        def back_to_main():
+            view_loaned_books_win.destroy()
+            view_books_from_lib()
 
-    back_button = tk.Button(view_loaned_books_win, text="Back", font=("David", 12), command=back_to_main, bg="#FFA500",fg="white")
-    back_button.pack(pady=1)
+        back_button = tk.Button(view_loaned_books_win, text="Back", font=("David", 12), command=back_to_main, bg="#FFA500",fg="white")
+        back_button.pack(pady=1)
 
+        with open('log.txt', 'a') as logger:
+            logger.write("Displayed borrowed books successfully\n")
+    except:
+        with open('log.txt', 'a') as logger:
+            logger.write("Displayed borrowed books fail\n")
 
 ################################################################################
 def view_books_by_genre_from_lib():
     from display_by_genre_gui import genre_books
-    genre_books_win = tk.Tk()
+    #genre_books_win = tk.Tk()
+    genre_books_win=tk.Toplevel()
     genre_books_win.title("books by genre")
     genre_books_win.geometry("700x350")
     genre_books_win.config(bg="#f0f0f0")
@@ -101,55 +124,55 @@ def view_books_by_genre_from_lib():
         genre_books("Fiction")
     def dystopian_submit():
         genre_books_win.withdraw()
-        #view_loaned_books()
+        genre_books("Dystopian")
     def classic_submit():
         genre_books_win.withdraw()
-        #view_available_books()
+        genre_books("Classic")
     def adventure_submit():
         genre_books_win.withdraw()
-        #popular_books_gui.popular_books_from_lib()
+        genre_books("Adventure")
     def historical_fiction_submit():
         genre_books_win.withdraw()
-        #popular_books_gui.popular_books_from_lib()
+        genre_books("Historical Fiction")
     def psychological_drama_submit():
         genre_books_win.withdraw()
-        #popular_books_gui.popular_books_from_lib()
+        genre_books("Psychological Drama")
     def philosophy_submit():
         genre_books_win.withdraw()
-        #popular_books_gui.popular_books_from_lib()
+        genre_books("Philosophy")
     def epic_poetry_submit():
         genre_books_win.withdraw()
-        #popular_books_gui.popular_books_from_lib()
+        genre_books("Epic Poetry")
     def gothic_fiction_submit():
         genre_books_win.withdraw()
-        #popular_books_gui.popular_books_from_lib()
+        genre_books("Gothic Fiction")
     def gothic_romance_submit():
         genre_books_win.withdraw()
-        #popular_books_gui.popular_books_from_lib()
+        genre_books("Gothic Romance")
     def romance_submit():
         genre_books_win.withdraw()
-        #popular_books_gui.popular_books_from_lib()
+        genre_books("Romance")
     def realism_submit():
         genre_books_win.withdraw()
-        #popular_books_gui.popular_books_from_lib()
+        genre_books("Realism")
     def modernism_submit():
         genre_books_win.withdraw()
-        #popular_books_gui.popular_books_from_lib()
+        genre_books("Modernism")
     def satire_submit():
         genre_books_win.withdraw()
-        #popular_books_gui.popular_books_from_lib()
+        genre_books("Satire")
     def science_fiction_submit():
         genre_books_win.withdraw()
-        #popular_books_gui.popular_books_from_lib()
+        genre_books("Science Fiction")
     def tragedy_submit():
         genre_books_win.withdraw()
-        #popular_books_gui.popular_books_from_lib()
+        genre_books("Tragedy")
     def fantasy_submit():
         genre_books_win.withdraw()
-        #popular_books_gui.popular_books_from_lib()
+        genre_books("Fantasy")
     def other_submit():
         genre_books_win.withdraw()
-        #popular_books_gui.popular_books_from_lib()
+        genre_books("other")
 
 
     fiction_button = tk.Button(genre_books_win, text="Fiction", font=("David", 12), height=2, width=20,command=fiction_submit,bg="#37a8c8", fg="white")
@@ -236,7 +259,8 @@ def view_books_by_genre_from_lib():
 
 def view_books_from_lib():
 
-    view_books_win = tk.Tk()
+    #view_books_win = tk.Tk()
+    view_books_win=tk.Toplevel()
     view_books_win.title("view books")
     view_books_win.geometry("300x330")
     view_books_win.config(bg="#f0f0f0")

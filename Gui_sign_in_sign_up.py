@@ -49,8 +49,10 @@ def sign_up():
                 validate_input(int(user_input),"age") #make sur it's int, not empty and reasonable age.
                 new_user.append(user_input)
                 print(f"Entered age: {user_input}")
-            except:
-                messagebox.showerror("Error", "Invalid age")
+            except ValueError as e:
+                messagebox.showerror("Error", f"{e}")
+                with open('log.txt', 'a') as logger:
+                    logger.write("registered fail\n")
                 second_win.destroy()
                 sign_up()
                 return
@@ -61,8 +63,9 @@ def sign_up():
                 new_user.append(user_input)
                 print(f"Entered user name: {user_input}")
             else:
-
                 messagebox.showerror("Error", "Username already exists")
+                with open('log.txt', 'a') as logger:
+                    logger.write("registered fail\n")
                 second_win.destroy()
                 sign_up()
                 return
@@ -75,12 +78,16 @@ def sign_up():
             print(f"Entered password: {user_input}")
         except ValueError as e:
             messagebox.showerror("Error", e)
+            with open('log.txt', 'a') as logger:
+                logger.write("registered fail\n")
             second_win.destroy()
             sign_up()
             return
 
         if Librarian.create_librarian(new_user) is not None:
             messagebox.showinfo("Success", "User created successfully!\n Now need to sign in")
+            with open('log.txt', 'a') as logger:
+                logger.write("registered successfully\n")
         back_to_main()
     new_user.clear()
 
@@ -98,11 +105,12 @@ def sign_up():
 Gui function that represent the signing in window.
 The function have two entries and verify if the user that signing in already sign up, 
 Also make sure that the password is correct.
-The function support invalid input exceptions.'''#################################################need to add try and except
+The function support invalid input exceptions.'''
 def sign_in():
 
     Gui_lib.root.withdraw()
-    second_win = tk.Tk()
+    #second_win = tk.Tk()
+    second_win=tk.Toplevel()
     second_win.title("sign in")
     second_win.geometry("300x200")
     second_win.config(bg="#f0f0f0")
@@ -122,27 +130,42 @@ def sign_in():
 
     user_ditailes=[]
     def submit():
-
-        user_input = user_name_entry.get()  # got username
-        if check_user_name(user_input): #Checkes if the user name exist, if not raise an exception.
-            user_ditailes.append(user_input)
-            print(f"Entered user name: {user_input}")
-        else:
-            messagebox.showerror("Error", "Wrong username")
+        try:###################################################################
+            user_input = user_name_entry.get()  # got username
+            validate_non_empty_data(user_input)
+            if check_user_name(user_input): #Checkes if the user name exist, if not raise an exception.
+                user_ditailes.append(user_input)
+                print(f"Entered user name: {user_input}")
+            else:
+                messagebox.showerror("Error", "Wrong username")
+                with open('log.txt', 'a') as logger:
+                    logger.write("logged in fail\n")
+                second_win.destroy()
+                sign_in()
+                return
+            passw=password_entry.get()
+            validate_non_empty_data(passw)
+            user_input = hashlib.sha256(passw.encode()).hexdigest()  # got the password, and encrypt it right away.
+            if (check_password(user_input, user_ditailes[0])):#checkes if the password matches to the username.
+                user_ditailes.append(user_input)
+                print(f"Entered password: {user_input}")
+            else:
+                messagebox.showerror("Error", "Wrong password")
+                with open('log.txt', 'a') as logger:
+                    logger.write("logged in fail\n")
+                second_win.destroy()
+                sign_in()
+                return
+        except ValueError as e:########################################################
+            messagebox.showerror("Error", e)
+            with open('log.txt', 'a') as logger:
+                logger.write("logged in fail\n")
             second_win.destroy()
             sign_in()
-            return
+            return###############################################################
 
-        user_input = hashlib.sha256(password_entry.get().encode()).hexdigest()  # got the password, and encrypt it right away.
-        if (check_password(user_input, user_ditailes[0])):#checkes if the password matches to the username.
-            user_ditailes.append(user_input)
-            print(f"Entered password: {user_input}")
-        else:
-            messagebox.showerror("Error", "Wrong password")
-            second_win.destroy()
-            sign_in()
-            return
-
+        with open('log.txt', 'a') as logger:
+            logger.write("logged in successfully\n")
         user_ditailes.clear()
         second_win.destroy()
         Gui_menu.menu_window()

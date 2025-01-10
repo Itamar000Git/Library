@@ -11,6 +11,8 @@ class search_book_title(SearchStrategy):
     def search(self,text,books_list):
         global optional_results
         optional_results = [s for s in books_list if s.startswith(text,"title")]
+
+
         return optional_results
 
 class search_book_author(SearchStrategy):

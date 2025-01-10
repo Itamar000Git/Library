@@ -9,7 +9,7 @@ from Librarian import *
 # support exit button for exit all program
 def exit():
     root.destroy()
-    exit()
+   # exit()
 
 def second_window(choice):
     if choice == "sign in":
