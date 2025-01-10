@@ -20,7 +20,7 @@ def view_all_books():
 
     text_widget.delete(1.0, tk.END)
     i = 1
-    for item in Librarian.books_list:
+    for item in books_list:
         text_widget.insert(tk.END, f"{i}. {item}\n")
         i += 1
 
@@ -46,7 +46,7 @@ def view_available_books():
 
     text_widget.delete(1.0, tk.END)
     i = 1
-    for item in Librarian.available_list:
+    for item in available_list:
         text_widget.insert(tk.END, f"{i}. {item}\n")
         i += 1
 
@@ -74,7 +74,7 @@ def view_loaned_books():
 
     text_widget.delete(1.0, tk.END)
     i = 1
-    for item in Librarian.loaned_list:
+    for item in loaned_list:
         text_widget.insert(tk.END, f"{i}. {item}\n")
         i += 1
 

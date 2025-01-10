@@ -2,7 +2,9 @@ import tkinter as tk
 from tkinter import messagebox
 
 import Gui_menu
-from Librarian import validate_non_empty_data, lend_book, validate_input
+from Librarian import validate_non_empty_data, lend_book, validate_input, update_files_from_list, loaned_list, \
+    available_list, books_list
+
 
 def get_person_details(book):
     person_win = tk.Tk()
@@ -44,10 +46,14 @@ def get_person_details(book):
             get_person_details(book)
             return
 
+        per_dict={str(person_dits[0]):str(person_dits[1])}
 
-        mystr=str(person_dits[0])+' : '+str(person_dits[1])
-        book.get_waiting_list().append(mystr)
-        print(book.get_waiting_list())
+        #mystr=str(person_dits[0])+' : '+str(person_dits[1]+',')
+        book.get_waiting_list().append(per_dict)
+        #print(book.get_waiting_list())
+        update_files_from_list(loaned_list, "loaned_books.csv")
+        update_files_from_list(available_list, "available_books.csv")
+        update_files_from_list(books_list, "books.csv")
 
         person_win.destroy()
         Gui_menu.menu_window()
@@ -63,4 +69,6 @@ def get_person_details(book):
 
     back_button = tk.Button(person_win, text="Back", font=("David", 12), command=back_to_main, bg="#FFA500", fg="white")
     back_button.pack(pady=1)
+
+    messagebox.showinfo("unavailable", "please enter your details for waiting list")
 

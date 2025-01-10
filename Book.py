@@ -7,22 +7,20 @@ import pandas as pd
     popularity: represent the popularity of each book. Actually its a number of requested to loaned.
     waiting_list: a list of strings that represent number of peoples  that ask for a book that dont have available book. '''
 class Book(ABC):
-    def __init__(self, title: str, author: str,is_loaned: str,genre : str, copies: int,year: int): ##########################
+    def __init__(self, title: str, author: str,is_loaned: str,genre : str, copies: int,available: int,waiting_list:list,year: int): ##########################
         self.__title = title
         self.__author = author
         self.__genre = genre
         self.__copies = copies
         self.__year = year
         self.__is_loaned = is_loaned
-        if is_loaned=="Yes":
-            self.__available_copies=0
-            self.__popularity=self.__copies
-        else:
-            self.__available_copies=self.__copies
-            self.__popularity=0
-        self.__waiting_list=[]
+        self.__available_copies = available
+        self.__popularity =(copies - available) + waiting_list.__len__()
+        self.__waiting_list=waiting_list
 
 
+    def remove_first(self):
+        self.__waiting_list.remove(self.__waiting_list[0])
 
     def request_to_loan(self):
         if self.__available_copies >= 1:
@@ -51,7 +49,7 @@ class Book(ABC):
         pd.options.display.max_columns = None  # Show all columns
         pd.options.display.width = 0
         df = pd.read_csv(filename)
-        new_row = {'title':self.get_title(), 'author':str(self.get_author()),'is_loaned':self.get_is_loaned(),'copies':self.get_copies(),'genre':self.get_genre(),'year':self.get_year()}
+        new_row = {'title':self.get_title(), 'author':str(self.get_author()),'is_loaned':self.get_is_loaned(),'copies':self.get_copies(),'available':self.get_available_copies(),'waiting list': self.get_waiting_list().__str__(),'genre':self.get_genre(),'year':self.get_year()}
 
         new_row_df = pd.DataFrame([new_row])
         df = pd.concat([df, new_row_df], ignore_index=True)
@@ -123,9 +121,11 @@ class Book(ABC):
         self.__popularity=popularity
     def set_available_copies(self,available_copies):
         self.__available_copies=available_copies
+    def set_copies(self, copies):
+        self.__copies=copies
 
     def __str__(self):
-        return self.__title + ' ' + self.__author + ' ' + self.__genre + ' ' + str(self.__copies) + ' ' + str(self.__year)
+        return self.__title + ' ' + self.__author + ' ' + self.__genre + ' ' + str(self.__copies) + ' '+str(self.__available_copies)+' '+self.__waiting_list.__str__() +''+ str(self.__year)
 
 
 
@@ -135,119 +135,119 @@ class Book(ABC):
 
 #class for each genre to implement factory.
 class Fiction (Book, ABC) :
-    def __init__(self, title: str, author: str,is_loaned:str , copies: int,year: int):
-        super().__init__(title, author,is_loaned,"Fiction",copies,year)
+    def __init__(self, title: str, author: str,is_loaned:str , copies: int,available: int,waiting_list:list,year: int):
+        super().__init__(title, author,is_loaned,"Fiction",copies,available,waiting_list,year)
 
 class Dystopian (Book, ABC) :
-    def __init__(self, title: str, author: str, is_loaned:str ,copies: int,year: int):
-        super().__init__(title, author,is_loaned,"Dystopian",copies,year)
+    def __init__(self, title: str, author: str, is_loaned:str ,copies: int,available: int,waiting_list:list,year: int):
+        super().__init__(title, author,is_loaned,"Dystopian",copies,available,waiting_list,year)
 
 class Classic (Book, ABC) :
-    def __init__(self, title: str, author: str,is_loaned:str , copies: int,year: int):
-        super().__init__(title, author,is_loaned,"Classic",copies,year)
+    def __init__(self, title: str, author: str,is_loaned:str , copies: int,available: int,waiting_list:list,year: int):
+        super().__init__(title, author,is_loaned,"Classic",copies,available,waiting_list,year)
 
 class Adventure (Book, ABC) :
-    def __init__(self, title: str, author: str,is_loaned:str , copies: int,year: int):
-        super().__init__(title, author,is_loaned,"Adventure",copies,year)
+    def __init__(self, title: str, author: str,is_loaned:str , copies: int,available: int,waiting_list:list,year: int):
+        super().__init__(title, author,is_loaned,"Adventure",copies,available,waiting_list,year)
 
 class Romance (Book, ABC) :
-    def __init__(self, title: str, author: str,is_loaned:str , copies: int,year: int):
-        super().__init__(title, author,is_loaned,"Romance",copies,year)
+    def __init__(self, title: str, author: str,is_loaned:str , copies: int,available: int,waiting_list:list,year: int):
+        super().__init__(title, author,is_loaned,"Romance",copies,available,waiting_list,year)
 
 class HistoricalFiction (Book, ABC) :
-    def __init__(self, title: str, author: str,is_loaned:str , copies: int,year: int):
-        super().__init__(title, author,is_loaned,"Historical Fiction",copies,year)
+    def __init__(self, title: str, author: str,is_loaned:str , copies: int,available: int,waiting_list:list,year: int):
+        super().__init__(title, author,is_loaned,"Historical Fiction",copies,available,waiting_list,year)
 
 class PsychologicalDrama (Book, ABC) :
-    def __init__(self, title: str, author: str,is_loaned:str , copies: int,year: int):
-        super().__init__(title, author,is_loaned,"Psychological Drama",copies,year)
+    def __init__(self, title: str, author: str,is_loaned:str , copies: int,available: int,waiting_list:list,year: int):
+        super().__init__(title, author,is_loaned,"Psychological Drama",copies,available,waiting_list,year)
 
 class Philosophy (Book, ABC) :
-    def __init__(self, title: str, author: str,is_loaned:str , copies: int,year: int):
-        super().__init__(title, author,is_loaned,"Philosophy",copies,year)
+    def __init__(self, title: str, author: str,is_loaned:str , copies: int,available: int,waiting_list:list,year: int):
+        super().__init__(title, author,is_loaned,"Philosophy",copies,available,waiting_list,year)
 
 class EpicPoetry (Book, ABC) :
-    def __init__(self, title: str, author: str, is_loaned:str ,copies: int,year: int):
-        super().__init__(title, author,is_loaned,"Epic Poetry",copies,year)
+    def __init__(self, title: str, author: str, is_loaned:str ,copies: int,available: int,waiting_list:list,year: int):
+        super().__init__(title, author,is_loaned,"Epic Poetry",copies,available,waiting_list,year)
 
 class GothicFiction (Book, ABC) :
-    def __init__(self, title: str, author: str,is_loaned:str , copies: int,year: int):
-        super().__init__(title, author,is_loaned,"Gothic Fiction",copies,year)
+    def __init__(self, title: str, author: str,is_loaned:str , copies: int,available: int,waiting_list:list,year: int):
+        super().__init__(title, author,is_loaned,"Gothic Fiction",copies,available,waiting_list,year)
 
 class GothicRomance (Book, ABC) :
-    def __init__(self, title: str, author: str,is_loaned:str , copies: int,year: int):
-        super().__init__(title, author,is_loaned,"Gothic Romance",copies,year)
+    def __init__(self, title: str, author: str,is_loaned:str , copies: int,available: int,waiting_list:list,year: int):
+        super().__init__(title, author,is_loaned,"Gothic Romance",copies,available,waiting_list,year)
 
 class Realism (Book, ABC) :
-    def __init__(self, title: str, author: str,is_loaned:str, copies: int,year: int):
-        super().__init__(title, author,is_loaned,"Realism",copies,year)
+    def __init__(self, title: str, author: str,is_loaned:str, copies: int,available: int,waiting_list:list,year: int):
+        super().__init__(title, author,is_loaned,"Realism",copies,available,waiting_list,year)
 
 class Modernism (Book, ABC) :
-    def __init__(self, title: str, author: str, is_loaned:str ,copies: int,year: int):
-        super().__init__(title, author,is_loaned,"Modernism",copies,year)
+    def __init__(self, title: str, author: str, is_loaned:str ,copies: int,available: int,waiting_list:list,year: int):
+        super().__init__(title, author,is_loaned,"Modernism",copies,available,waiting_list,year)
 
 class Satire (Book, ABC) :
-    def __init__(self, title: str, author: str, is_loaned:str ,copies: int,year: int):
-        super().__init__(title, author,is_loaned,"Satire",copies,year)
+    def __init__(self, title: str, author: str, is_loaned:str ,copies: int,available: int,waiting_list:list,year: int):
+        super().__init__(title, author,is_loaned,"Satire",copies,available,waiting_list,year)
 
 class ScienceFiction (Book, ABC) :
-    def __init__(self, title: str, author: str, is_loaned:str ,copies: int,year: int):
-        super().__init__(title, author,is_loaned,"Science Fiction",copies,year)
+    def __init__(self, title: str, author: str, is_loaned:str ,copies: int,available: int,waiting_list:list,year: int):
+        super().__init__(title, author,is_loaned,"Science Fiction",copies,available,waiting_list,year)
 
 class Tragedy (Book, ABC) :
-    def __init__(self, title: str, author: str, is_loaned:str ,copies: int,year: int):
-        super().__init__(title, author,is_loaned,"Tragedy",copies,year)
+    def __init__(self, title: str, author: str, is_loaned:str ,copies: int,available: int,waiting_list:list,year: int):
+        super().__init__(title, author,is_loaned,"Tragedy",copies,available,waiting_list,year)
 
 class Fantasy (Book, ABC) :
-    def __init__(self, title: str, author: str, is_loaned:str ,copies: int,year: int):
-        super().__init__(title, author,is_loaned,"Fantasy",copies,year)
+    def __init__(self, title: str, author: str, is_loaned:str ,copies: int,available: int,waiting_list:list,year: int):
+        super().__init__(title, author,is_loaned,"Fantasy",copies,available,waiting_list,year)
 
 
 #factory implementation by genre. support the option to add a book with new genre.
 class BookFactory:
     @staticmethod
-    def creat_book(title: str, author: str, is_loaned: str, genre:str ,copies: int,year: int)-> Optional[Book]:
+    def creat_book(title: str, author: str, is_loaned: str, genre:str ,copies: int,available:int,waiting_list:list,year: int)-> Optional[Book]:
         if copies < 0 :
             print("Error: number of duplicates cannot be negative")
             return None
         if genre == "Fiction":
-            return Fiction(title, author,is_loaned, copies, year)
+            return Fiction(title, author,is_loaned, copies,available,waiting_list, year)
         elif genre == "Dystopian":
-            return Dystopian(title, author,is_loaned, copies, year)
+            return Dystopian(title, author,is_loaned, copies,available,waiting_list, year)
         elif genre == "Classic":
-            return Classic(title, author,is_loaned, copies, year)
+            return Classic(title, author,is_loaned, copies,available,waiting_list, year)
         elif genre == "Adventure":
-            return Adventure(title, author,is_loaned, copies, year)
+            return Adventure(title, author,is_loaned, copies,available,waiting_list, year)
         elif genre == "Romance":
-            return Romance(title, author,is_loaned, copies, year)
+            return Romance(title, author,is_loaned, copies,available,waiting_list, year)
         elif genre == "Historical Fiction":
-            return HistoricalFiction(title, author,is_loaned, copies, year)
+            return HistoricalFiction(title, author,is_loaned, copies,available,waiting_list, year)
         elif genre == "Psychological Drama":
-            return PsychologicalDrama(title, author,is_loaned, copies, year)
+            return PsychologicalDrama(title, author,is_loaned, copies,available,waiting_list, year)
         elif genre == "Philosophy":
-            return Philosophy(title, author,is_loaned, copies, year)
+            return Philosophy(title, author,is_loaned, copies,available,waiting_list, year)
         elif genre == "EpicPoetry":
-            return EpicPoetry(title, author,is_loaned, copies, year)
+            return EpicPoetry(title, author,is_loaned, copies,available,waiting_list, year)
         elif genre == "Gothic Fiction":
-            return GothicFiction(title, author,is_loaned, copies, year)
+            return GothicFiction(title, author,is_loaned, copies,available,waiting_list, year)
         elif genre == "Gothic Romance":
-            return GothicRomance(title, author,is_loaned, copies, year)
+            return GothicRomance(title, author,is_loaned, copies,available,waiting_list, year)
         elif genre == "Realism":
-            return Realism(title, author,is_loaned, copies, year)
+            return Realism(title, author,is_loaned, copies,available,waiting_list, year)
         elif genre == "Modernism":
-            return Modernism(title, author,is_loaned, copies, year)
+            return Modernism(title, author,is_loaned, copies,available,waiting_list, year)
         elif genre == "Tragedy":
-            return Tragedy(title, author,is_loaned, copies, year)
+            return Tragedy(title, author,is_loaned, copies,available,waiting_list, year)
         elif genre == "Fantasy":
-            return Fantasy(title, author,is_loaned, copies, year)
+            return Fantasy(title, author,is_loaned, copies,available,waiting_list, year)
         elif genre == "Epic Poetry":
-            return EpicPoetry(title, author,is_loaned, copies, year)
+            return EpicPoetry(title, author,is_loaned, copies,available,waiting_list, year)
         elif genre == "Satire":
-            return Satire(title, author,is_loaned, copies, year)
+            return Satire(title, author,is_loaned, copies,available,waiting_list, year)
         elif genre == "Science Fiction":
-            return ScienceFiction(title, author,is_loaned, copies, year)
+            return ScienceFiction(title, author,is_loaned, copies,available,waiting_list, year)
         else:
-            return Book(title, author,is_loaned,genre, copies, year)###################################33
+            return Book(title, author,is_loaned,genre, copies,available,waiting_list, year)###################################33
 
 
 #def main():

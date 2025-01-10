@@ -32,18 +32,20 @@ def lend_books_from_lib():
 
         print(f"Entered book title: {title_input}")
         lend_win.withdraw()
-        lend_book(title_input)
+        b= lend_book(title_input)
+
+        if b=="done":
+            messagebox.showinfo("Success", f"Book {title_input} successfully loaned.")
+            lend_win.destroy()
+            Gui_menu.menu_window()
+        elif b=="not found":
+            messagebox.showerror("Error", "Book not in the system")
+            lend_win.destroy()
+            Gui_menu.menu_window()
+        elif b=="waiting list":
+            lend_win.destroy()
 
 
-        # b=remove_book(title_input)
-        # if b=="found":
-        #     messagebox.showinfo("Success", "Book successfully removed")
-        # elif b=="not found":
-        #     messagebox.showerror("Error", "Book not in the system")
-        # elif b=="loaned":
-        #     messagebox.showerror("Error", "Book loaned")
-        lend_win.destroy()
-        #Gui_menu.menu_window()
 
 
     submit_button = tk.Button(lend_win, text="Submit", font=("David", 12), command=submit, bg="#4CAF50", fg="white")
