@@ -183,3 +183,40 @@ Displayed successfully
 Displayed successfully
 ##############################system_open##################################
 logged in successfully
+##############################system_open##################################
+logged in successfully
+##############################system_open##################################
+logged in successfully
+##############################system_open##################################
+logged in successfully
+Search book The by name completed successfully
+Search book f by name fail
+Search book t by name fail
+Search book T by name completed successfully
+##############################system_open##################################
+##############################system_open##################################
+logged in successfully
+Search book The by name completed successfully
+Search book J by author completed successfully
+Search book F by genre completed successfully
+##############################system_open##################################
+logged in successfully
+Search book F by genre completed successfully
+Search book 1 by year completed successfully
+##############################system_open##################################
+logged in successfully
+Displayed successfully
+Displayed successfully
+Displayed successfully
+Displayed successfully
+Displayed successfully
+##############################system_open##################################
+logged in successfully
+Displayed all books successfully
+##############################system_open##################################
+logged in successfully
+Displayed successfully
+##############################system_open##################################
+logged in successfully
+##############################system_open##################################
+logged in successfully

@@ -153,6 +153,12 @@ def validate_input(a,type):
         if len(str(a)) != 9:
             raise ValueError("Phone number must be 10 digits and start with 0.")
 
+#This function raise an exception if the field is empty.
+def validate_non_empty_data(data):
+    if not data:
+        raise ValueError("Input cannot be empty")
+    return data
+
 
 #This function checks if a given hashed password match to the saved password in the user.csv file.
 def check_password(user_input,user_ditailes):
@@ -165,11 +171,6 @@ def check_password(user_input,user_ditailes):
         else:
             print(" something wrong")
 
-#This function raise an exception if the field is empty.
-def validate_non_empty_data(data):
-    if not data:
-        raise ValueError("Input cannot be empty")
-    return data
 
 '''
 Add_book method implements the add book methodology.

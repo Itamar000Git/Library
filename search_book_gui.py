@@ -188,7 +188,7 @@ def search_book_in_lib():
 
 
 def view_search(results):
-    view_search_win = tk.Tk()
+    #view_search_win = tk.Tk()
     view_search_win=tk.Toplevel()
     view_search_win.title("Search results")
     view_search_win.geometry("600x620")
@@ -196,7 +196,7 @@ def view_search(results):
     entry_label = tk.Label(view_search_win, text="Search results", font=("David", 12), bg="#f0f0f0")
     entry_label.pack(pady=1)
 
-    text_widget = tk.Text(view_search_win, font=("David", 12), height=32, width=70)
+    text_widget = tk.Text(view_search_win, font=("David", 12), height=32, width=80)
     text_widget.pack(pady=1)
 
 
