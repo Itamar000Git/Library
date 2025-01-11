@@ -30,10 +30,10 @@ class Librarian(Observer):
         self.__user_name = user_name
         self.__is_librarian = True
         self.__password = password
-        self.notification=[]################################################
+        self.notification=[]
 
     #implementation of the observer method.
-    def update(self, subject):############################################################
+    def update(self, subject):
         self.notification.append(subject)
         print(f"{self.__name} have new notification.\n {subject}")
 
@@ -63,7 +63,7 @@ class Librarian(Observer):
     def get_password(self):
         return self.__password
     def __str__(self):
-        return self.get_name() +' '+ self.get_age() +' '+self.get_user_name()+ ' '+self.get_password()
+        return self.get_name() +' '+ str(self.get_age()) +' '+self.get_user_name()+ ' '+self.get_password()
 
 
 
@@ -191,13 +191,12 @@ def add_book(book_dit_list):
                 i.set_available_copies(i.get_available_copies()+book_dit_list[3])
 
                 print("Book already exists , copy added")
-                if len(i.get_waiting_list())>0 and i.get_waiting_list()[0]!= 'nan':####################
+                if len(i.get_waiting_list())>0 and i.get_waiting_list()[0]!= 'nan':
                     for j in range(i.get_available_copies()):
-                        notify_lib(f"The book {i.get_title()} has available copy for {i.get_waiting_list()[0]}.")#####################
-                        print(i.get_waiting_list()[0])#notification
+                        notify_lib(f"The book {i.get_title()} has available copy for {i.get_waiting_list()[0]}.")
+                        print(i.get_waiting_list()[0])
                         i.remove_first()
                         print(i.get_waiting_list())
-                        #i.get_waiting_list()[1:]
                         i.set_available_copies(i.get_available_copies()-1)
                 if i.get_available_copies()>0:
                     i.set_is_loaned="No"
@@ -206,29 +205,23 @@ def add_book(book_dit_list):
                         loaned_list.remove(i)
                 elif i.get_available_copies()==0:
                     i.set_is_loaned="Yes"
-                    if i not in loaned_list:#######################################33333
+                    if i not in loaned_list:
                         available_list.remove(i)
                         loaned_list.append(i)
 
-               ###############need to update ava.csv
-                    #update_files_from_list(available_list, "available_books.csv")
                 update_files_from_list(books_list,"books.csv")
-                #write_objects_to_csv(books_list,"books.csv")#####################################
-                #update_files(i,"books.csv")
-                #update_files(i,"available_books.csv")
-                #update_files(i,"loaned_books.csv")
+
                 with open('log.txt', 'a') as logger:
                     logger.write("book added successfully\n")
                 return "exist"
-    #empty_list=[]
     b1=BookFactory.creat_book(book_dit_list[0], book_dit_list[1],"No", book_dit_list[2], book_dit_list[3],book_dit_list[3],[], book_dit_list[4])#################
     print(f"New book added: {b1}")
     books_list.append(b1)
     available_list.append(b1)
-    # b1.append("books.csv")
-    # b1.append("available_books.csv")########################################
     update_files_from_list(books_list,"books.csv")
     update_files_from_list(available_list,"available_books.csv")
+    update_files_from_list(loaned_list,"loaned_books.csv")
+
     with open('log.txt', 'a') as logger:
         logger.write("book added successfully\n")
     return "new"
@@ -336,10 +329,12 @@ def lend_book(title):
                     update_files_from_list(books_list, "books.csv")
                     update_files_from_list(loaned_list, "loaned_books.csv")
                     update_files_from_list(available_list, "available_books.csv")
+                    with open('log.txt', 'a') as logger:
+                        logger.write("book borrowed successfully\n")
                     return "done"
 
             else:
-                get_person_details(i)
+                get_person_details(title)
                 with open('log.txt', 'a') as logger:
                     logger.write("book borrowed fail\n")
 
@@ -351,8 +346,54 @@ def lend_book(title):
     return "not found"
 
 
-def return_book():
-    print("return book")
+def return_book(title):
+    from person_details_gui import get_person_details
+    st = Serarch_strategy.search_book_title()
+    optional_results = Serarch_strategy.search_book_title.search(st, title, books_list, False)
+    for i in optional_results:
+        if i.get_title() == title:
+            if i.get_available_copies()==i.get_copies():
+                with open('log.txt', 'a') as logger:
+                    logger.write("book returned fail\n")
+                return "error"
+            if i.get_available_copies() > 0 or len(i.get_waiting_list())==0 or i.get_waiting_list()[0]=='nan':
+                i.set_available_copies(i.get_available_copies() + 1)
+                if i not in available_list:
+                    available_list.append(i)
+                    loaned_list.remove(i)
+                    i.set_is_loaned="No"
+
+
+                with open('log.txt', 'a') as logger:
+                    logger.write("book returned successfully\n")
+                    update_files_from_list(loaned_list, "loaned_books.csv")
+                    update_files_from_list(available_list, "available_books.csv")
+                    update_files_from_list(books_list, "books.csv")
+
+                return "done"
+            elif i.get_available_copies() == 0 and i.get_waiting_list()[0]!='nan':
+                notify_lib(f"The book {i.get_title()} has available copy for {i.get_waiting_list()[0]}.")
+                i.remove_first()
+
+
+                with open('log.txt', 'a') as logger:
+                    logger.write("book returned successfully\n")
+                update_files_from_list(loaned_list, "loaned_books.csv")
+                update_files_from_list(available_list, "available_books.csv")
+                update_files_from_list(books_list, "books.csv")
+
+                return "loaned again"
+    with open('log.txt', 'a') as logger:
+        logger.write("book returned fail\n")
+    print("book not found")
+    return "book not found"
+
+
+
+
+
+
+
 
 
 '''
@@ -362,7 +403,7 @@ def popular_books():
     copy_list=[]
     for i in books_list:
         copy_list.append(i)
-    copy_list=sorted(copy_list,key=lambda book: book.get_popularity(),reverse=True)################################
+    copy_list=sorted(copy_list,key=lambda book: book.get_popularity(),reverse=True)
     print("popular books")
     return copy_list
 

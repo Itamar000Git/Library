@@ -78,7 +78,6 @@ def view_available_books():
 
 def view_loaned_books():
 
-    #view_loaned_books_win = tk.Tk()
     try:
         view_loaned_books_win=tk.Toplevel()
         view_loaned_books_win.title("Loaned Books list")
@@ -109,7 +108,7 @@ def view_loaned_books():
         with open('log.txt', 'a') as logger:
             logger.write("Displayed borrowed books fail\n")
 
-################################################################################
+
 def view_books_by_genre_from_lib():
     from display_by_genre_gui import genre_books
     #genre_books_win = tk.Tk()
@@ -249,7 +248,7 @@ def view_books_by_genre_from_lib():
 
 
 
-######################################################################################
+
 
 
 
@@ -298,8 +297,8 @@ def view_books_from_lib():
     Popular_button = tk.Button(view_books_win, text="Popular Books", font=("David", 20),width=20,command=popular_book_submit, bg="#4CAF50", fg="white")
     Popular_button.pack(pady=5)
 
-    Popular_button = tk.Button(view_books_win, text="Books by genre", font=("David", 20),width=20,command=book_by_genre_submit, bg="#4CAF50", fg="white")
-    Popular_button.pack(pady=5)
+    genre_button = tk.Button(view_books_win, text="Books by genre", font=("David", 20),width=20,command=book_by_genre_submit, bg="#4CAF50", fg="white")
+    genre_button.pack(pady=5)
 
 
     def back_to_main():

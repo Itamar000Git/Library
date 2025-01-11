@@ -19,8 +19,9 @@ def remove_book_from_lib():
 
     def submit():
 
-        title_input = title_entry.get()
+
         try:
+            title_input = title_entry.get()
             validate_non_empty_data(title_input)
         except ValueError as e:
             messagebox.showerror("Error", e)
@@ -47,7 +48,7 @@ def remove_book_from_lib():
 
     def back_to_main():
         remove_win.destroy()
-        Gui_menu.menu_window()  ##############################################
+        Gui_menu.menu_window()
 
     back_button = tk.Button(remove_win, text="Back", font=("David", 12), command=back_to_main, bg="#FFA500", fg="white")
     back_button.pack(pady=1)

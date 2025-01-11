@@ -15,7 +15,7 @@ def search_book_in_lib():
     search_books_win.config(bg="#f0f0f0")
 
     def submit_title():
-        title_stra=search_book_title()
+        title_stra = search_book_title()
         try:
             title_input = title_entry.get()
             validate_non_empty_data(title_input)
@@ -24,16 +24,13 @@ def search_book_in_lib():
             result=title_stra.search(title_input, Librarian.books_list,True)
             for i in result:
                 print(i.__str__())
-            if len(result)>0: ############################################################################
-                # with open('log.txt', 'a') as logger:
-                #     logger.write(f"Search book {title_input} by name completed successfully\n")
+
+            if len(result)>0:
                 view_search(result)
             else:
-                # with open('log.txt', 'a') as logger:
-                #     logger.write(f"Search book {title_input} by name fail\n")
                 messagebox.showinfo(title="No result", message="No result")
+                search_book_in_lib()
 
-                search_book_in_lib() #######################################################################
             search_books_win.withdraw()
         except ValueError as e:
             messagebox.showerror("Error", str(e))
@@ -55,14 +52,10 @@ def search_book_in_lib():
             for i in result:
                 print(i.__str__())
 
-            if len(result)>0: ############################################################################
-                # with open('log.txt', 'a') as logger:
-                #     logger.write(f"Search book {author_input} by author completed successfully\n")
+            if len(result)>0:
                 view_search(result)
             else:
-                # with open('log.txt', 'a') as logger:
-                #     logger.write(f"Search book {author_input} by author fail\n")
-                messagebox.showinfo(title="No result", message="No result")###############################
+                messagebox.showinfo(title="No result", message="No result")
                 search_book_in_lib()
             search_books_win.withdraw()
 
@@ -84,13 +77,9 @@ def search_book_in_lib():
             for i in result:
                 print(i.__str__())
 
-            if len(result) > 0:  ############################################################################
-                # with open('log.txt', 'a') as logger:
-                #     logger.write(f"Search book {genre_input} by genre completed successfully\n")
+            if len(result) > 0:
                 view_search(result)
             else:
-                # with open('log.txt', 'a') as logger:
-                #     logger.write(f"Search book {genre_input} by genre fail\n")
                 messagebox.showinfo(title="No result", message="No result")################################
                 search_book_in_lib()
 
@@ -117,13 +106,9 @@ def search_book_in_lib():
             for i in result:
                 print(i.__str__())
 
-            if len(result) > 0:  ############################################################################
-                # with open('log.txt', 'a') as logger:
-                #     logger.write(f"Search book {year_input} by year completed successfully\n")
+            if len(result) > 0:
                 view_search(result)
             else:
-                # with open('log.txt', 'a') as logger:
-                #     logger.write(f"Search book {year_input} by year fail\n")
                 messagebox.showinfo(title="No result", message="No result")
                 search_book_in_lib()
 
@@ -165,20 +150,6 @@ def search_book_in_lib():
 
 
 
-
-
-
-
-
-    # text_widget = tk.Text(search_books_win, font=("David", 12), height=32, width=70)
-    # text_widget.pack(pady=1)
-    #
-    #
-    # text_widget.delete(1.0, tk.END)
-    # i=1
-    # for item in Librarian.books_list:
-    #     text_widget.insert(tk.END, f"{i}. {item}\n")
-    #     i+=1
     def back_to_main():
         search_books_win.destroy()
         Gui_menu.menu_window()  ##############################################
@@ -188,7 +159,7 @@ def search_book_in_lib():
 
 
 def view_search(results):
-    #view_search_win = tk.Tk()
+
     view_search_win=tk.Toplevel()
     view_search_win.title("Search results")
     view_search_win.geometry("600x620")
@@ -207,7 +178,7 @@ def view_search(results):
         i+=1
     def back_to_main():
         view_search_win.destroy()
-        Gui_menu.search_book_in_lib()  ##############################################
+        Gui_menu.search_book_in_lib()
 
     back_button = tk.Button(view_search_win, text="Back", font=("David", 12), command=back_to_main, bg="#FFA500", fg="white")
     back_button.pack(pady=1)

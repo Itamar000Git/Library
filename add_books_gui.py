@@ -60,28 +60,25 @@ def add_book_to_lib():
 
             copies_input = int(copies_entry.get())
             validate_input(copies_input,"copies")
-            new_book.append(int(copies_input)) #####################need to make sur its int
+            new_book.append(int(copies_input))
             print(f"Entered book copies: {copies_input}")
 
             year_input = year_entry.get()
             validate_input(int(year_input),"year")
-            new_book.append(int(year_input))##################### need to check validate
+            new_book.append(int(year_input))
             print(f"Entered book year: {year_input}")
 
 
             b=add_book(new_book) #send as input a list that include all the book fields. "b" is string that help us indicate what add book done.
             new_book.clear()
             if b == "new":
-                # with open('log.txt', 'a') as logger:
-                #     logger.write("book added successfully\n")
+
                 messagebox.showinfo("Success", "Book added successfully")
             elif b == "exist":
-                # with open('log.txt', 'a') as logger:
-                #     logger.write("book added successfully\n")
+
                 messagebox.showinfo("Success", "Book already exists, another copy added")
             else:
-                with open('log.txt', 'a') as logger:
-                    logger.write("book added fail\n")
+
                 messagebox.showerror("Error", "Book not added")
         except ValueError as e:
             print(e)

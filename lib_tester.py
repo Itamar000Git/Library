@@ -9,14 +9,13 @@ from Book import BookFactory
 class MyTestCase(unittest.TestCase):
 
 
-
     def test_duplicated_user_name(self):
         c1 =["Dan", 26, "the_same", "1234"]
         Librarian.create_librarian(c1)
         c2 = ["ben", 30, "the_same", "1111"]
         self.assertTrue(check_user_name(c2[2]))
 
-    def test_invalid_age(self):###########################################33
+    def test_invalid_age(self):
         with self.assertRaises(ValueError):
             c2 = ["ben", "aa", "the_same", "1111"]
             validate_input(c2[1],"age")
@@ -55,7 +54,6 @@ class MyTestCase(unittest.TestCase):
         b = lend_book("not exist book")
         self.assertTrue(b=="not found")
 
-    #def test_return_not_exist_book(self):
 
     def test_loaned_unavailable_book(self):
         new_b = ["test1", "myself", "other", 2, 2005]
@@ -110,15 +108,16 @@ class MyTestCase(unittest.TestCase):
         new_b_dit = [new_b.get_title(), new_b.get_author(), new_b.get_genre(), new_b.get_copies(), new_b.get_year()]
         add_book(new_b_dit)
 
-
-        # lend_book("test3")
-        # lend_book("test3")
         for i in books_list:
             if i.get_title() == new_b.get_title():
                 self.assertEqual(i.get_copies(),2)
                 self.assertEqual(i.get_available_copies(), 0)
 
-        #remove_book("test3") #################################need to add return and remove
+        return_book("test3")
+        return_book("test3")
+        remove_book("test3")
+
+
 
     def test_search_new_book(self):
         Librarian.init_library()
@@ -166,9 +165,6 @@ class MyTestCase(unittest.TestCase):
         remove_book("test3")
         remove_book("test4")
 
-    #def test_view_results(self):#########################dont know how to test
-        #Librarian.init_library()
-
 
     def test_popularity_result(self):
         Librarian.init_library()
@@ -179,11 +175,8 @@ class MyTestCase(unittest.TestCase):
         new_b_dit = [new_b.get_title(), new_b.get_author(), new_b.get_genre(), new_b.get_copies(), new_b.get_year()]
         add_book(new_b_dit)
 
-        lend_book("test5")
-        lend_book("test5")
-        lend_book("test5")
-        lend_book("test5")
-        lend_book("test5")
+        for i in range(5):
+            lend_book("test5")
         popular = popular_books()
 
         self.assertTrue(popular[0].get_title() == "1984")
@@ -192,10 +185,13 @@ class MyTestCase(unittest.TestCase):
 
         self.assertTrue(popular[0].get_title() == "test5")
 
-        #############################################################need to add return and remove
+        for i in range(6):
+            return_book("test5")
+
+        remove_book("test5")
 
 
-    #def test_save_data_after_restart(self):##not sure this is possible
+
 
 
     def test_loaned_last_ava_book(self):
@@ -211,13 +207,18 @@ class MyTestCase(unittest.TestCase):
         self.assertTrue(new_b not in available_list)
         self.assertTrue(new_b in loaned_list)
 
-        ######################need to add return and remove
+        return_book("test6")
+        remove_book("test6")
 
 
-    #def test_return_ar_add_first_ava_book(self): ################cant yet
+
+
+
+
+
 
     def test_exceptions_raises(self):
-
+        Librarian.init_library()
         self.assertRaises(ValueError, validate_non_empty_data,"")
 
         self.assertRaises(ValueError,validate_input,"","non")
@@ -281,6 +282,20 @@ class MyTestCase(unittest.TestCase):
         lend_book("test8")#book borrowed successfully
         logger.append("book borrowed successfully")
 
+        return_book("test8")#book returns successfully
+        logger.append("book returned successfully")
+
+        return_book("test8")#book returns fail
+        logger.append("book returned fail")
+
+        remove_book("test8")#book removed successfully
+        logger.append("book removed successfully")
+
+        remove_book("test8")#book removed fail
+        logger.append("book removed fail")
+
+
+
         with open('log.txt', 'r') as file:
             for line in file:
                 log_txt.append(line.strip())
@@ -292,8 +307,52 @@ class MyTestCase(unittest.TestCase):
 
 
 
-        ##################need to return and remove
+    def test_return_first_or_add_first_ava_book(self):
+        Librarian.init_library()
+        new_b = BookFactory.creat_book("test9", "myself", "No", "other", 2, 2, [], 2005)
+        new_b_dit = [new_b.get_title(), new_b.get_author(), new_b.get_genre(), new_b.get_copies(), new_b.get_year()]
+        add_book(new_b_dit)
 
+
+
+        for i in books_list:
+            if i.get_title()==new_b.get_title():
+                lend_book("test9")
+                lend_book("test9")
+                print(i.get_is_loaned())
+
+                self.assertTrue(i in loaned_list)
+                self.assertTrue(i.get_available_copies()==0)
+
+                return_book("test9")
+                self.assertTrue(i not in loaned_list)
+                self.assertTrue(i.get_available_copies()==1)
+
+                lend_book("test9")
+                self.assertTrue(i in loaned_list)
+                self.assertTrue(i.get_available_copies()==0)
+
+                add_book(new_b_dit)
+                self.assertTrue(i not in loaned_list)
+                self.assertTrue(i.get_available_copies()==2)
+                self.assertTrue(i.get_copies() == 4)
+
+        return_book("test9")
+        return_book("test9")
+        remove_book("test9")
+
+
+
+    def test_return_not_exist_book(self):
+        Librarian.init_library()
+        new_b = BookFactory.creat_book("test10", "myself", "No", "other", 2, 2, [], 2005)
+        new_b_dit = [new_b.get_title(), new_b.get_author(), new_b.get_genre(), new_b.get_copies(), new_b.get_year()]
+        add_book(new_b_dit)
+        for i in books_list:
+            if i.get_title()==new_b.get_title():
+                self.assertTrue(i in books_list)
+                remove_book("test10")
+                self.assertEqual(return_book("test10"),"book not found")
 
 
 

@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import messagebox
 
 import Gui_menu
-from Librarian import validate_non_empty_data, lend_book, validate_input
+from Librarian import validate_non_empty_data, lend_book, validate_input, return_book
 
 '''
 Gui function that represent the lend book window.
@@ -47,8 +47,6 @@ def lend_books_from_lib():
             lend_win.destroy()
             Gui_menu.menu_window()
         elif b=="waiting list":
-
-
             lend_win.destroy()
 
 
@@ -83,8 +81,9 @@ def return_books_from_lib():
 
     def submit():
 
-        title_input = title_entry.get()
+
         try:
+            title_input = title_entry.get()
             validate_non_empty_data(title_input)
         except ValueError as e:
             messagebox.showerror("Error", e)
@@ -92,21 +91,18 @@ def return_books_from_lib():
             return_books_from_lib()
             return
 
-
-
         print(f"Entered book title: {title_input}")
 
 
-        # b=remove_book(title_input)
-        # if b=="found":
-        #     messagebox.showinfo("Success", "Book successfully removed")
-        # elif b=="not found":
-        #     messagebox.showerror("Error", "Book not in the system")
-        # elif b=="loaned":
-        #     messagebox.showerror("Error", "Book loaned")
-
-        # with open('log.txt', 'a') as logger: ############################need to implement
-        #     logger.write("book added successfully\n")
+        b=return_book(title_input)
+        if b=="done":
+            messagebox.showinfo("Success", "Book successfully returned.")
+        elif b=="book not found":
+            messagebox.showerror("Error", "Book not in the system")
+        elif b=="loaned again":
+            messagebox.showinfo("Success", "Book loaned to the next person")
+        elif b=="error":
+            messagebox.showerror("Error","Can't return more than book capacity")
 
         return_win.destroy()
         Gui_menu.menu_window()

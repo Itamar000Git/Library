@@ -29,28 +29,6 @@ class Book(ABC):
     def remove_first(self):
         self.__waiting_list.remove(self.__waiting_list[0])
 
-    # def request_to_loan(self):
-    #     if self.__available_copies >= 1:
-    #         self.__available_copies=self.__available_copies-1
-    #     else:
-    #         print("No available copies")
-    #         return False
-
-    # #function that added copies and updated available field
-    # def add_copies(self,num_of_copies):#just a new book copy not returned one
-    #     #maybe need to take in consider a new book
-    #     self.__copies=  self.__copies+num_of_copies
-    #     self.__available_copies= self.__available_copies+num_of_copies
-    #     print(f"Added {num_of_copies} copies of {self.__title}")
-
-
-
-
-        # df=pd.read_csv("books.csv")
-        # df.loc[df["title"]==self.get_title(),"copies"]=
-        # df.to_csv("Books.csv",index=False)
-        # print(df)
-        #############################log############
     #Generic function that append an object to a given file. the object should support file fields.
     def append(self, filename: str):#add a book to some file (ava.csv or loaned.csv)
         pd.options.display.max_columns = None  # Show all columns
@@ -141,13 +119,8 @@ class Book(ABC):
     def __str__(self):
         return self.__title + ' ' + self.__author + ' ' + self.__genre + ' ' + str(self.__copies) + ' '+str(self.__available_copies)+' '+self.__waiting_list.__str__() +''+ str(self.__year)
 
-    # def __contains__(self, item):############################################
-    #     if self.get_title() == item.get_title():
-    #         return True
-    #     else:
-    #         return False
 
-    def __eq__(self, other):############################################################
+    def __eq__(self, other):
         return self.get_title() == other.get_title()
 
 

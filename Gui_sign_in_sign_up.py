@@ -46,7 +46,7 @@ def sign_up():
             user_input = age_entry.get()  #got the age
             validate_non_empty_data(user_input)
             try:
-                validate_input(int(user_input),"age") #make sur it's int, not empty and reasonable age.
+                validate_input(int(user_input),"age") #make sure it's int, not empty and reasonable age.
                 new_user.append(user_input)
                 print(f"Entered age: {user_input}")
             except ValueError as e:
@@ -130,7 +130,7 @@ def sign_in():
 
     user_ditailes=[]
     def submit():
-        try:###################################################################
+        try:
             user_input = user_name_entry.get()  # got username
             validate_non_empty_data(user_input)
             if check_user_name(user_input): #Checkes if the user name exist, if not raise an exception.
@@ -146,7 +146,7 @@ def sign_in():
             passw=password_entry.get()
             validate_non_empty_data(passw)
             user_input = hashlib.sha256(passw.encode()).hexdigest()  # got the password, and encrypt it right away.
-            if (check_password(user_input, user_ditailes[0])):#checkes if the password matches to the username.
+            if check_password(user_input, user_ditailes[0]):#checkes if the password matches to the username.
                 user_ditailes.append(user_input)
                 print(f"Entered password: {user_input}")
             else:
@@ -156,13 +156,13 @@ def sign_in():
                 second_win.destroy()
                 sign_in()
                 return
-        except ValueError as e:########################################################
+        except ValueError as e:
             messagebox.showerror("Error", e)
             with open('log.txt', 'a') as logger:
                 logger.write("logged in fail\n")
             second_win.destroy()
             sign_in()
-            return###############################################################
+            return
 
         with open('log.txt', 'a') as logger:
             logger.write("logged in successfully\n")

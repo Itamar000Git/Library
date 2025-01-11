@@ -6,8 +6,8 @@ from Librarian import validate_non_empty_data, lend_book, validate_input, loaned
     update_files_from_list
 
 
-def get_person_details(book):
-    #person_win = tk.Tk()
+def get_person_details(title):
+
     person_win=tk.Toplevel()
     person_win.title("person details")
     person_win.geometry("300x300")
@@ -25,15 +25,14 @@ def get_person_details(book):
 
     def submit1():
         person_dits=[]
-
+        full_name_input = full_name_entry.get()
         try:
-            full_nume_input = full_name_entry.get()
-            validate_non_empty_data(full_nume_input)
-            person_dits.append(full_nume_input)
+            validate_non_empty_data(full_name_input)
+            person_dits.append(full_name_input)
         except ValueError as e:
             messagebox.showerror("Error", e)
             person_win.destroy()
-            get_person_details(book)
+            get_person_details(title)
             return
 
 
@@ -44,22 +43,20 @@ def get_person_details(book):
         except ValueError as e:
             messagebox.showerror("Error", e)
             person_win.destroy()
-            get_person_details(book)
+            get_person_details(title)
             return
 
         per_dict={str(person_dits[0]):str(person_dits[1])}
 
-        #mystr=str(person_dits[0])+' : '+str(person_dits[1]+',')
-        for i in book.get_waiting_list(): ############################################
-            if i == 'nan':
-                book.get_waiting_list().remove(i)
+        for i in books_list:
+            if i.get_title()==title:
+                if len(i.get_waiting_list())>0:
+                    if i.get_waiting_list()[0] == 'nan':
+                        i.get_waiting_list().remove(i)
+                i.get_waiting_list().append(per_dict)
 
-        book.get_waiting_list().append(per_dict)
-        messagebox.showinfo("info", f"You are listed to the waiting list successfully.")
-        #print(book.get_waiting_list())
-        # write_objects_to_csv(loaned_list, "loaned_books.csv")
-        # write_objects_to_csv(available_list, "available_books.csv")
-        # write_objects_to_csv(books_list, "books.csv")
+        messagebox.showinfo("info", "You are listed to the waiting list successfully.")
+
         update_files_from_list(loaned_list, "loaned_books.csv")
         update_files_from_list(available_list, "available_books.csv")
         update_files_from_list(books_list, "books.csv")
@@ -74,7 +71,7 @@ def get_person_details(book):
 
     def back_to_main():
         person_win.destroy()
-        Gui_menu.menu_window()  ##############################################
+        Gui_menu.menu_window()
 
     back_button = tk.Button(person_win, text="Back", font=("David", 12), command=back_to_main, bg="#FFA500", fg="white")
     back_button.pack(pady=1)

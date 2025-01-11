@@ -67,14 +67,3 @@ class search_book_year(SearchStrategy):
 
         return optional_results
 
-
-
-# need to fine all books that there title starts with text
-# def search_book_auther(self, text):
-#     #need to fine all books that there title starts with text
-# def search_book_year(self, text):
-#     # need to fine all books that there title starts with text
-# def search_book_genre(self, text):
-#     # need to fine all books that there title starts with text
-# def add_book(self,num_of_copies):
-#     ###if exist add copies if not create new book
