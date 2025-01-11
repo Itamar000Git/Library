@@ -21,16 +21,16 @@ def search_book_in_lib():
             validate_non_empty_data(title_input)
             print(str(title_input))
 
-            result=title_stra.search(title_input, Librarian.books_list)
+            result=title_stra.search(title_input, Librarian.books_list,True)
             for i in result:
                 print(i.__str__())
             if len(result)>0: ############################################################################
-                with open('log.txt', 'a') as logger:
-                    logger.write(f"Search book {title_input} by name completed successfully\n")
+                # with open('log.txt', 'a') as logger:
+                #     logger.write(f"Search book {title_input} by name completed successfully\n")
                 view_search(result)
             else:
-                with open('log.txt', 'a') as logger:
-                    logger.write(f"Search book {title_input} by name fail\n")
+                # with open('log.txt', 'a') as logger:
+                #     logger.write(f"Search book {title_input} by name fail\n")
                 messagebox.showinfo(title="No result", message="No result")
 
                 search_book_in_lib() #######################################################################
@@ -51,17 +51,17 @@ def search_book_in_lib():
             validate_non_empty_data(author_input)
             print(str(author_input))
 
-            result =  author_stra.search( author_input, Librarian.books_list)
+            result =  author_stra.search( author_input, Librarian.books_list,True)
             for i in result:
                 print(i.__str__())
 
             if len(result)>0: ############################################################################
-                with open('log.txt', 'a') as logger:
-                    logger.write(f"Search book {author_input} by author completed successfully\n")
+                # with open('log.txt', 'a') as logger:
+                #     logger.write(f"Search book {author_input} by author completed successfully\n")
                 view_search(result)
             else:
-                with open('log.txt', 'a') as logger:
-                    logger.write(f"Search book {author_input} by author fail\n")
+                # with open('log.txt', 'a') as logger:
+                #     logger.write(f"Search book {author_input} by author fail\n")
                 messagebox.showinfo(title="No result", message="No result")###############################
                 search_book_in_lib()
             search_books_win.withdraw()
@@ -80,17 +80,17 @@ def search_book_in_lib():
             validate_non_empty_data(genre_input)
             print(str(genre_input))
 
-            result =  genre_stra.search( genre_input, Librarian.books_list)
+            result =  genre_stra.search( genre_input, Librarian.books_list,True)
             for i in result:
                 print(i.__str__())
 
             if len(result) > 0:  ############################################################################
-                with open('log.txt', 'a') as logger:
-                    logger.write(f"Search book {genre_input} by genre completed successfully\n")
+                # with open('log.txt', 'a') as logger:
+                #     logger.write(f"Search book {genre_input} by genre completed successfully\n")
                 view_search(result)
             else:
-                with open('log.txt', 'a') as logger:
-                    logger.write(f"Search book {genre_input} by genre fail\n")
+                # with open('log.txt', 'a') as logger:
+                #     logger.write(f"Search book {genre_input} by genre fail\n")
                 messagebox.showinfo(title="No result", message="No result")################################
                 search_book_in_lib()
 
@@ -113,17 +113,17 @@ def search_book_in_lib():
             validate_input(int(year_input),"year")
             print(str(year_input))
 
-            result =  year_stra.search( year_input, Librarian.books_list)
+            result =  year_stra.search( year_input, Librarian.books_list,True)
             for i in result:
                 print(i.__str__())
 
             if len(result) > 0:  ############################################################################
-                with open('log.txt', 'a') as logger:
-                    logger.write(f"Search book {year_input} by year completed successfully\n")
+                # with open('log.txt', 'a') as logger:
+                #     logger.write(f"Search book {year_input} by year completed successfully\n")
                 view_search(result)
             else:
-                with open('log.txt', 'a') as logger:
-                    logger.write(f"Search book {year_input} by year fail\n")
+                # with open('log.txt', 'a') as logger:
+                #     logger.write(f"Search book {year_input} by year fail\n")
                 messagebox.showinfo(title="No result", message="No result")
                 search_book_in_lib()
 

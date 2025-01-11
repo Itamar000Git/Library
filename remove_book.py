@@ -29,7 +29,7 @@ def remove_book_from_lib():
             return
 
         #new_book.append(str(title_input))
-        print("########################remove#################################")
+
         print(f"Entered book title: {title_input}")
         b=remove_book(title_input)
         if b=="found":

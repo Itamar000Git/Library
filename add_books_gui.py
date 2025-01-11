@@ -72,12 +72,12 @@ def add_book_to_lib():
             b=add_book(new_book) #send as input a list that include all the book fields. "b" is string that help us indicate what add book done.
             new_book.clear()
             if b == "new":
-                with open('log.txt', 'a') as logger:
-                    logger.write("book added successfully\n")
+                # with open('log.txt', 'a') as logger:
+                #     logger.write("book added successfully\n")
                 messagebox.showinfo("Success", "Book added successfully")
             elif b == "exist":
-                with open('log.txt', 'a') as logger:
-                    logger.write("book added successfully\n")
+                # with open('log.txt', 'a') as logger:
+                #     logger.write("book added successfully\n")
                 messagebox.showinfo("Success", "Book already exists, another copy added")
             else:
                 with open('log.txt', 'a') as logger:

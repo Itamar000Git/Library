@@ -23,7 +23,7 @@ def genre_books(genre):
 
         text_widget.delete(1.0, tk.END)
         stra=Serarch_strategy.search_book_genre()
-        genre_list=stra.search(genre,books_list)
+        genre_list=stra.search(genre,books_list,False)
 
         i = 1
         for item in genre_list:
@@ -38,8 +38,8 @@ def genre_books(genre):
         back_button.pack(pady=1)
 
         with open('log.txt', 'a') as logger:
-            logger.write("Displayed successfully\n")
+            logger.write("Displayed book by category successfully\n")
 
     except:
             with open('log.txt', 'a') as logger:
-                logger.write("Displayed fail\n")
+                logger.write("Displayed book by category fail\n")

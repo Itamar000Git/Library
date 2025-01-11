@@ -130,12 +130,7 @@ class Librarian(Observer):
         return librarian
 
 
-#Function that use iterator to check if the given username already registered.
-def check_user_name(user_name: str):
-    for i in librarian_list:
-        if i.get_user_name() == user_name:
-            return True
-    return False
+
 
 #Function that check multiple exceptions using the value of "type" string.
 def validate_input(a,type):
@@ -159,6 +154,12 @@ def validate_non_empty_data(data):
         raise ValueError("Input cannot be empty")
     return data
 
+#Function that use iterator to check if the given username already registered.
+def check_user_name(user_name: str):
+    for i in librarian_list:
+        if i.get_user_name() == user_name:
+            return True
+    return False
 
 #This function checks if a given hashed password match to the saved password in the user.csv file.
 def check_password(user_input,user_ditailes):
@@ -181,7 +182,7 @@ If this book have waiting list we let them know that we have available book.
 '''
 def add_book(book_dit_list):
     st=Serarch_strategy.search_book_title() #use title strategy
-    optional_results=Serarch_strategy.search_book_title.search(st,book_dit_list[0] ,books_list)
+    optional_results=Serarch_strategy.search_book_title.search(st,book_dit_list[0] ,books_list,False)
     if len(optional_results)>0:
         for i in optional_results:
             if i.get_title() == book_dit_list[0]:
@@ -216,6 +217,8 @@ def add_book(book_dit_list):
                 #update_files(i,"books.csv")
                 #update_files(i,"available_books.csv")
                 #update_files(i,"loaned_books.csv")
+                with open('log.txt', 'a') as logger:
+                    logger.write("book added successfully\n")
                 return "exist"
     #empty_list=[]
     b1=BookFactory.creat_book(book_dit_list[0], book_dit_list[1],"No", book_dit_list[2], book_dit_list[3],book_dit_list[3],[], book_dit_list[4])#################
@@ -226,6 +229,8 @@ def add_book(book_dit_list):
     # b1.append("available_books.csv")########################################
     update_files_from_list(books_list,"books.csv")
     update_files_from_list(available_list,"available_books.csv")
+    with open('log.txt', 'a') as logger:
+        logger.write("book added successfully\n")
     return "new"
 
 #This function implement the library observer with notifications that sent when a waited book is available.
@@ -284,10 +289,16 @@ def remove_book(title):
                 update_files_from_list(available_list, "available_books.csv")
                 update_files_from_list(books_list, "books.csv")
                 print("remove book")
+                with open('log.txt', 'a') as logger:
+                    logger.write("book removed successfully\n")
                 return "found"
             else:
+                with open('log.txt', 'a') as logger:
+                    logger.write("book removed fail\n")
                 return "loaned"
     print("book not found")
+    with open('log.txt', 'a') as logger:
+        logger.write("book removed fail\n")
     return "not found"
 
 
@@ -296,7 +307,7 @@ def remove_book(title):
 def lend_book(title):
     from person_details_gui import get_person_details
     st=Serarch_strategy.search_book_title()
-    optional_results=Serarch_strategy.search_book_title.search(st,title,books_list)
+    optional_results=Serarch_strategy.search_book_title.search(st,title,books_list,False)
     for i in optional_results:
         if i.get_title() == title:
             i.set_popularity(i.get_popularity()+1)
@@ -315,7 +326,8 @@ def lend_book(title):
                     update_files_from_list(loaned_list, "loaned_books.csv")
                     update_files_from_list(available_list, "available_books.csv")
                     update_files_from_list(books_list, "books.csv")
-
+                    with open('log.txt', 'a') as logger:
+                        logger.write("book borrowed successfully\n")
                     return "done"
                 else:
                     # write_objects_to_csv(loaned_list, "loaned_books.csv")
@@ -328,8 +340,13 @@ def lend_book(title):
 
             else:
                 get_person_details(i)
+                with open('log.txt', 'a') as logger:
+                    logger.write("book borrowed fail\n")
 
                 return "waiting list"
+
+    with open('log.txt', 'a') as logger:
+        logger.write("book borrowed fail\n")
     print("book not found")
     return "not found"
 

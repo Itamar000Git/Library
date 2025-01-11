@@ -38,19 +38,16 @@ def lend_books_from_lib():
 
         if b=="done":
             messagebox.showinfo("Success", f"Book {title_input} successfully loaned.")
-            with open('log.txt', 'a') as logger:
-                logger.write("book borrowed successfully\n")
+
             lend_win.destroy()
             Gui_menu.menu_window()
         elif b=="not found":
             messagebox.showerror("Error", "Book not in the system")
-            with open('log.txt', 'a') as logger:
-                logger.write("book borrowed fail\n")
+
             lend_win.destroy()
             Gui_menu.menu_window()
         elif b=="waiting list":
-            with open('log.txt', 'a') as logger:
-                logger.write("book borrowed fail\n")
+
 
             lend_win.destroy()
 
