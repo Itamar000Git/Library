@@ -190,9 +190,9 @@ def add_book(book_dit_list):
                 i.set_available_copies(i.get_available_copies()+book_dit_list[3])
 
                 print("Book already exists , copy added")
-                if len(i.get_waiting_list())>0:
+                if len(i.get_waiting_list())>0 and i.get_waiting_list()[0]!= 'nan':####################
                     for j in range(i.get_available_copies()):
-                        notify_lib(f"The book {i.get_title()} has available copy for {i.get_waiting_list()[0]}.")
+                        notify_lib(f"The book {i.get_title()} has available copy for {i.get_waiting_list()[0]}.")#####################
                         print(i.get_waiting_list()[0])#notification
                         i.remove_first()
                         print(i.get_waiting_list())
@@ -205,7 +205,7 @@ def add_book(book_dit_list):
                         loaned_list.remove(i)
                 elif i.get_available_copies()==0:
                     i.set_is_loaned="Yes"
-                    if not loaned_list.__contains__(i):
+                    if i not in loaned_list:#######################################33333
                         available_list.remove(i)
                         loaned_list.append(i)
 
@@ -304,7 +304,8 @@ def lend_book(title):
             if i.get_available_copies() > 0:
                 i.set_available_copies(i.get_available_copies()-1)
                 if i.get_available_copies()==0:
-                    i.set_is_loaned("Yes")
+                    i.set_is_loaned="Yes"
+                    #i.set_is_loaned("Yes")
                     loaned_list.append(i)
                     available_list.remove(i)
 

@@ -15,11 +15,14 @@ class Book(ABC):
         self.__year = year
         self.__is_loaned = is_loaned
         self.__available_copies = available
-        if waiting_list[0] != 'nan':
-            self.__popularity =(copies - available) + waiting_list.__len__()
+        self.__waiting_list = waiting_list
+        if len(waiting_list) > 0: ######################################################3
+            if waiting_list[0] != 'nan':
+                self.__popularity =(copies - available) + waiting_list.__len__()
+            else:
+                self.__popularity = (copies - available)
         else:
             self.__popularity = (copies - available)
-        self.__waiting_list=waiting_list
 
 
 
@@ -138,6 +141,14 @@ class Book(ABC):
     def __str__(self):
         return self.__title + ' ' + self.__author + ' ' + self.__genre + ' ' + str(self.__copies) + ' '+str(self.__available_copies)+' '+self.__waiting_list.__str__() +''+ str(self.__year)
 
+    # def __contains__(self, item):############################################
+    #     if self.get_title() == item.get_title():
+    #         return True
+    #     else:
+    #         return False
+
+    def __eq__(self, other):############################################################
+        return self.get_title() == other.get_title()
 
 
 
@@ -259,3 +270,4 @@ class BookFactory:
             return ScienceFiction(title, author,is_loaned, copies,available,waiting_list, year)
         else:
             return Book(title, author,is_loaned,genre, copies,available,waiting_list, year)
+
