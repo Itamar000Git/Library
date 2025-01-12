@@ -6,7 +6,13 @@ import Librarian
 import popular_books_gui
 
 from popular_books_gui import *
-
+'''
+This module defines the functionality for managing and viewing books in a library system.
+It provides various GUI windows for viewing all books, available books, loaned books, and books by genre.
+Each window is created using the Tkinter library, and allows the user to interact with the books database
+through buttons that trigger specific views. It also includes a logging mechanism to track successes and failures
+when displaying book lists and related operations.
+'''
 
 def view_all_books():
    # view_all_books_win = tk.Tk()
@@ -245,14 +251,6 @@ def view_books_by_genre_from_lib():
 
     back_button = tk.Button(genre_books_win, text="Back", font=("David", 12), command=back_to_main, bg="#FFA500", fg="white")
     back_button.grid(row=5, column=2, padx=3, pady=3)
-
-
-
-
-
-
-
-
 
 
 

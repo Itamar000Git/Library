@@ -8,7 +8,12 @@ from Librarian import *
 #from Librarian import remove_book, validate_non_empty_data
 from view_books_gui import view_books_from_lib
 
-
+'''
+This class is responsible for managing and displaying the top 10 popular books in a library.
+The popularity of the books is determined by sorting the books based on their popularity.
+A secondary window is created to display the top 10 most popular books according to this sorting.
+The window displays the books in a Text widget and includes a "Back" button to navigate to the main library view.
+'''
 def popular_books_from_lib():
     #popular_books_win = tk.Tk()
     try:

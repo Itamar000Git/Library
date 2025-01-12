@@ -6,7 +6,12 @@ import Librarian
 from Librarian import remove_book, validate_non_empty_data, validate_input
 from Serarch_strategy import search_book_title, search_book_author, search_book_genre, search_book_year
 
-
+'''
+This function allows users to search for books in the library based on four criteria: Title, Author, Genre, or Year. 
+It creates a window with entry fields for each of the criteria and provides a Submit button for each. 
+When the user submits a search query, the corresponding search function is called, and results are displayed in a new window. 
+If no results are found, an informational message is shown. In case of an error, an error message is displayed, and the user can try again.
+'''
 def search_book_in_lib():
     #search_books_win = tk.Tk()
     search_books_win=tk.Toplevel()

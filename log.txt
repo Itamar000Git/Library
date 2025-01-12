@@ -1,87 +1,20 @@
 ##############################system_open##################################
-book added successfully
+##############################system_open##################################
+book removed fail
 book added successfully
 book removed successfully
 book removed fail
-Search book test8 by name fail
-Search book myself by author fail
-Search book other by genre fail
-Search book 2005 by year fail
+##############################system_open##################################
+book removed fail
 book added successfully
-Search book test8 by name completed successfully
-Search book myself by author completed successfully
-Search book other by genre completed successfully
-Search book 2005 by year completed successfully
-book borrowed successfully
-book returned successfully
-book returned fail
 book removed successfully
 book removed fail
 ##############################system_open##################################
 book added successfully
 book borrowed successfully
+book borrowed successfully
+book borrowed fail
 book returned successfully
-book returned fail
-##############################system_open##################################
-book added successfully
-book borrowed successfully
-book returned successfully
-book returned fail
-##############################system_open##################################
-book added successfully
-book borrowed successfully
-##############################system_open##################################
-book added successfully
-book borrowed successfully
-##############################system_open##################################
-book added successfully
-book borrowed successfully
-book returned successfully
-book returned fail
-##############################system_open##################################
-##############################system_open##################################
-book added successfully
-book borrowed successfully
-book returned successfully
-book removed successfully
-##############################system_open##################################
-##############################system_open##################################
-book added successfully
-book borrowed successfully
-book returned successfully
-book removed successfully
-##############################system_open##################################
-book added successfully
-book borrowed successfully
-book borrowed successfully
-book borrowed successfully
-book borrowed successfully
-book borrowed successfully
-book borrowed successfully
-book returned successfully
-book returned successfully
-book returned successfully
-book returned successfully
-book returned successfully
-book removed fail
-##############################system_open##################################
-##############################system_open##################################
-book added successfully
-book borrowed successfully
-book borrowed successfully
-book borrowed successfully
-book borrowed successfully
-book borrowed successfully
-book borrowed successfully
-book returned successfully
-book returned successfully
-book returned successfully
-book returned successfully
-book returned successfully
-book removed fail
-##############################system_open##################################
-book added successfully
-book borrowed successfully
 book returned successfully
 book removed successfully
 ##############################system_open##################################
@@ -89,25 +22,6 @@ book added successfully
 book borrowed successfully
 book returned successfully
 book removed successfully
-##############################system_open##################################
-book added successfully
-book borrowed successfully
-book borrowed successfully
-book borrowed successfully
-book borrowed successfully
-book borrowed successfully
-book borrowed successfully
-book returned successfully
-book returned successfully
-book returned successfully
-book returned successfully
-book returned successfully
-book returned successfully
-book removed successfully
-##############################system_open##################################
-book added successfully
-book borrowed successfully
-book added successfully
 ##############################system_open##################################
 book added successfully
 book borrowed successfully
@@ -118,94 +32,20 @@ book removed successfully
 ##############################system_open##################################
 book added successfully
 book borrowed successfully
+book added successfully
+book returned successfully
 book returned successfully
 book removed successfully
-book added successfully
-book borrowed successfully
-book borrowed successfully
-book added successfully
-book borrowed successfully
-book borrowed successfully
 ##############################system_open##################################
 book added successfully
-book borrowed successfully
-book borrowed successfully
+book removed successfully
+book added successfully
+book added successfully
+book removed successfully
+##############################system_open##################################
 ##############################system_open##################################
 ##############################system_open##################################
 book added successfully
-book borrowed successfully
-book borrowed successfully
-##############################system_open##################################
-book added successfully
-book borrowed successfully
-book borrowed successfully
-##############################system_open##################################
-book added successfully
-book borrowed successfully
-book borrowed successfully
-##############################system_open##################################
-book added successfully
-book borrowed successfully
-book borrowed successfully
-##############################system_open##################################
-book added successfully
-book borrowed successfully
-book borrowed successfully
-##############################system_open##################################
-book added successfully
-book borrowed successfully
-book borrowed successfully
-book returned successfully
-book borrowed successfully
-##############################system_open##################################
-book added successfully
-book borrowed successfully
-book borrowed successfully
-book returned successfully
-book borrowed successfully
-book added successfully
-##############################system_open##################################
-book added successfully
-book borrowed successfully
-book borrowed successfully
-##############################system_open##################################
-book added successfully
-book borrowed successfully
-book borrowed successfully
-##############################system_open##################################
-book added successfully
-book borrowed successfully
-book borrowed successfully
-##############################system_open##################################
-book added successfully
-book borrowed successfully
-book borrowed successfully
-##############################system_open##################################
-book added successfully
-book borrowed successfully
-book borrowed successfully
-##############################system_open##################################
-##############################system_open##################################
-book added successfully
-book borrowed successfully
-book borrowed successfully
-book returned successfully
-book borrowed successfully
-book added successfully
-##############################system_open##################################
-book added successfully
-book borrowed successfully
-book borrowed successfully
-book returned successfully
-book borrowed successfully
-book added successfully
-book returned successfully
-book removed fail
-##############################system_open##################################
-book added successfully
-book borrowed successfully
-book borrowed successfully
-book returned successfully
 book borrowed successfully
 book added successfully
 book returned successfully
@@ -213,27 +53,100 @@ book returned successfully
 book removed successfully
 ##############################system_open##################################
 book added successfully
-book borrowed successfully
-book borrowed successfully
-book returned successfully
-book borrowed successfully
+book removed successfully
 book added successfully
-book returned successfully
-book returned successfully
+book added successfully
 book removed successfully
 ##############################system_open##################################
-book added successfully
-book borrowed successfully
-book borrowed successfully
-book returned successfully
-book borrowed successfully
-book added successfully
-book returned successfully
-book returned successfully
-book removed successfully
-##############################system_open##################################
-book returned fail
 ##############################system_open##################################
 book added successfully
+##############################system_open##################################
+##############################system_open##################################
+##############################system_open##################################
+registered successfully
+logged in successfully
+##############################system_open##################################
+registered successfully
+logged in successfully
+book added successfully
 book removed successfully
-book returned fail
+Search book 1984 by name completed successfully
+Search book J by author completed successfully
+book added successfully
+Displayed all books successfully
+Displayed borrowed books successfully
+Displayed available books successfully
+displayed successfully
+Displayed book by category successfully
+Displayed book by category successfully
+book borrowed successfully
+book borrowed successfully
+book borrowed fail
+book borrowed fail
+displayed successfully
+book borrowed fail
+displayed successfully
+book returned successfully
+book returned successfully
+displayed successfully
+##############################system_open##################################
+registered successfully
+logged in successfully
+book added successfully
+book removed successfully
+Search book 1948 by name fail
+Search book 1984 by name completed successfully
+Search book J by author completed successfully
+Displayed all books successfully
+Displayed borrowed books successfully
+Displayed available books successfully
+displayed successfully
+Displayed book by category successfully
+Displayed book by category successfully
+book added successfully
+book borrowed successfully
+book borrowed successfully
+book borrowed fail
+displayed successfully
+book borrowed fail
+Displayed all books successfully
+Displayed borrowed books successfully
+book returned successfully
+Displayed borrowed books successfully
+log out successful
+logged in fail
+logged in fail
+logged in successfully
+book added fail
+##############################system_open##################################
+logged in successfully
+book added fail
+##############################system_open##################################
+logged in fail
+registered fail
+logged in successfully
+book added fail
+##############################system_open##################################
+registered successfully
+logged in fail
+logged in successfully
+book added successfully
+book added successfully
+book removed successfully
+Search book 1984 by name completed successfully
+Search book J by author completed successfully
+Displayed all books successfully
+Displayed borrowed books successfully
+Displayed available books successfully
+displayed successfully
+Displayed book by category successfully
+Displayed book by category successfully
+Displayed book by category successfully
+book borrowed successfully
+book borrowed successfully
+book borrowed fail
+book borrowed fail
+displayed successfully
+book returned successfully
+Displayed all books successfully
+log out successful

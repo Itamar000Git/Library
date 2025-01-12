@@ -34,10 +34,12 @@ Provides a graphical user interface (GUI) for easy navigation and interaction.
 
 
 ##Running instruction
+#tests: Run one by one only, because the testers open window that need to be confirmed.
 
 #Sign-in / Sign-up:
  1. sign up with a new user
  2. sign in with the username and password that you just sign up with, and move to the main menu window.
+ Note: there is e default user (username:1,password:1)
 
 #Main menu:
  1. For adding book: choose "add book" button.

@@ -82,12 +82,6 @@ class Librarian(Observer):
         with open('log.txt', 'a') as logger:
             logger.write("##############################system_open##################################\n")
 
-
-        # def_user=["1",1,"1","1"] #################test user, can be deleted
-        # def_user[3]=hashlib.sha256(def_user[3].encode()).hexdigest()
-        # l1=Librarian.create_librarian(def_user)
-
-
         df=pd.read_csv("users.csv")
         print(df)
         for index, row in df.iterrows():
@@ -239,15 +233,6 @@ def clear_rows_from_csv(file_path):
     df = df.iloc[:0]
     df.to_csv(file_path, index=False)
 
-# def update_files(book,filename):
-#     #book.append()###############################33
-#     df=pd.read_csv(str(filename))
-#     df.loc[df["title"]==book.get_title(),"copies"]=book.get_copies()
-#     df.loc[df["title"]==book.get_title(),"available"]=book.get_available_copies()
-#     df.to_csv(filename,index=False)
-#     print(df)
-#     print("file updated")
-
 #generic method that update a file from a given list.
 def update_files_from_list(updated_list,file_name):
     pd.options.display.max_columns = None  # Show all columns
@@ -255,10 +240,7 @@ def update_files_from_list(updated_list,file_name):
     clear_rows_from_csv(file_name)
     for i in updated_list:
         i.append(file_name)
-    #df = pd.read_csv(file_name)
 
-    #print(f"####################################{file_name}###################################################")
-    # print(df)
 
 '''
 "remove_book" function represent the remove operation.
@@ -296,6 +278,12 @@ def remove_book(title):
 
 
 '''
+"lend_book" function represent the lend methodology.
+When a person wants to lend a book the system need to verify a few things first:
+1. The book must be exist in the library, if not the borrowed fails.
+2. The book must be available to loan (available copies in lib), Otherwise we need to save name and number for waiting list.
+3. If there is a available book to loan, we loan it by decreasing the available copies.
+    In that point we also have to check if this is the last book available and if it is, change the "is_loaned" field to "Yes".  
 '''
 def lend_book(title):
     from person_details_gui import get_person_details
@@ -309,13 +297,8 @@ def lend_book(title):
                 i.set_available_copies(i.get_available_copies()-1)
                 if i.get_available_copies()==0:
                     i.set_is_loaned="Yes"
-                    #i.set_is_loaned("Yes")
                     loaned_list.append(i)
                     available_list.remove(i)
-
-                    # write_objects_to_csv(loaned_list, "loaned_books.csv")
-                    # write_objects_to_csv(available_list, "available_books.csv")
-                    # write_objects_to_csv(books_list, "books.csv")
                     update_files_from_list(loaned_list, "loaned_books.csv")
                     update_files_from_list(available_list, "available_books.csv")
                     update_files_from_list(books_list, "books.csv")
@@ -345,7 +328,15 @@ def lend_book(title):
     print("book not found")
     return "not found"
 
-
+'''
+The "return_book" function represent the return methodology.
+When a person wants to return a book th system need to verify a few things first:
+1. The book must be exist in the library, if not the return fails.
+2. The system make sure that we dont reach to more available copies then actual copies.
+3. When someone returns a book and the book doesn't have waiting list, we added 1 to the available copies.
+   If before this return the book was unavailable so we also need to update "is_loaned" field to "No"
+4. When that book have waiting list we just pass the book to the other person an short the list.
+'''
 def return_book(title):
     from person_details_gui import get_person_details
     st = Serarch_strategy.search_book_title()
@@ -387,14 +378,6 @@ def return_book(title):
         logger.write("book returned fail\n")
     print("book not found")
     return "book not found"
-
-
-
-
-
-
-
-
 
 '''
 This function sort the book list by their popularity field (highest first).
