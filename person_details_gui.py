@@ -4,7 +4,12 @@ from tkinter import messagebox
 import Gui_menu
 from Librarian import validate_non_empty_data, lend_book, validate_input, loaned_list, available_list, books_list, \
     update_files_from_list
-
+'''
+This function creates a window to allow the user to enter their personal details, such as full name and phone number,
+when they want to join a waiting list for a book. The entered data is validated, and if correct, it is added to the book's
+waiting list. The updated book lists (loaned, available, and all books) are saved to CSV files after the successful addition.
+In case of invalid input, an error message is shown, and the user can re-enter their details.
+'''
 
 def get_person_details(title):
 

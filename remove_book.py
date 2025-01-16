@@ -3,7 +3,12 @@ from tkinter import messagebox
 
 import Gui_menu
 from Librarian import *
-
+'''
+This function creates a window for removing a book from the library by its title. 
+The user enters the title of the book they want to remove, and the input is validated. 
+Based on whether the book is found, loaned, or not in the system, an appropriate message is shown, 
+and the book is removed from the library if applicable. After the operation, the user is returned to the main menu.
+'''
 
 def remove_book_from_lib():
     #remove_win = tk.Tk()

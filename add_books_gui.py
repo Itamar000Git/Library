@@ -87,6 +87,7 @@ def add_book_to_lib():
             messagebox.showerror("Error", e)
             add_win.destroy() #if there is any problem close the specific window and go back to the start
             add_book_to_lib()
+            return
         add_win.destroy() # if we finished the process of adding book
         Gui_menu.menu_window()
 

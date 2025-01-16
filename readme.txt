@@ -13,6 +13,8 @@ Simplifies book management by tracking titles, authors, genres, availability, an
 Enables efficient lending and return operations with detailed logs.
 Provides a graphical user interface (GUI) for easy navigation and interaction.
 
+Link to GitHub with  video og simple use - https://github.com/Itamar000Git/Library.git  -  "record.mp4"
+
 ---
 
 ## Features
@@ -34,10 +36,12 @@ Provides a graphical user interface (GUI) for easy navigation and interaction.
 
 
 ##Running instruction
+#tests: Run one by one only, because the testers open window that need to be confirmed.
 
 #Sign-in / Sign-up:
  1. sign up with a new user
  2. sign in with the username and password that you just sign up with, and move to the main menu window.
+ Note: there is e default user (username:1,password:1)
 
 #Main menu:
  1. For adding book: choose "add book" button.
@@ -88,3 +92,6 @@ Below are the main design patterns that being used in this project:
     This function make sure that the data being inserted from the entries is valid.
   # Another decorator usage is in the notification implement,
     The Librarian class inheritance the observer and have implement the update method.
+
+ ## Iterator
+  # In the view_books file we used iterator that indicates each time on another book and display it to the screen.

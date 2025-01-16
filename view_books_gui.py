@@ -6,7 +6,13 @@ import Librarian
 import popular_books_gui
 
 from popular_books_gui import *
-
+'''
+This module defines the functionality for managing and viewing books in a library system.
+It provides various GUI windows for viewing all books, available books, loaned books, and books by genre.
+Each window is created using the Tkinter library, and allows the user to interact with the books database
+through buttons that trigger specific views. It also includes a logging mechanism to track successes and failures
+when displaying book lists and related operations.
+'''
 
 def view_all_books():
    # view_all_books_win = tk.Tk()
@@ -22,8 +28,18 @@ def view_all_books():
         text_widget.pack(pady=1)
 
         text_widget.delete(1.0, tk.END)
+
+        if len (books_list)==0:
+            print("No books to show")
+            messagebox.showerror("Error", "No books to show")
+            view_all_books_win.destroy()
+            view_books_from_lib()
+            raise Exception ("No books to show")
+
+        iterator=iter(books_list)
+
         i = 1
-        for item in books_list:
+        for item in iterator:
             text_widget.insert(tk.END, f"{i}. {item}\n")
             i += 1
 
@@ -40,6 +56,7 @@ def view_all_books():
        with open('log.txt', 'a') as logger:
            logger.write("Displayed all books fail\n")
 
+
 def view_available_books():
 
     #view_ava_books_win = tk.Tk()
@@ -55,8 +72,15 @@ def view_available_books():
         text_widget.pack(pady=1)
 
         text_widget.delete(1.0, tk.END)
+        if len (available_list)==0:
+            print("No available books")
+            messagebox.showerror("Error", "No available books")
+            view_ava_books_win.destroy()
+            view_books_from_lib()
+            raise Exception ("No available books")
+        iterator = iter(available_list)
         i = 1
-        for item in available_list:
+        for item in iterator:
             text_widget.insert(tk.END, f"{i}. {item}\n")
             i += 1
 
@@ -90,8 +114,15 @@ def view_loaned_books():
         text_widget.pack(pady=1)
 
         text_widget.delete(1.0, tk.END)
+        if len (loaned_list)==0:
+            print("No loaned books")
+            messagebox.showerror("Error", "No loaned books")
+            view_loaned_books_win.destroy()
+            view_books_from_lib()
+            raise Exception ("No loaned books")
+        iterator = iter(loaned_list)
         i = 1
-        for item in loaned_list:
+        for item in iterator:
             text_widget.insert(tk.END, f"{i}. {item}\n")
             i += 1
 
@@ -245,14 +276,6 @@ def view_books_by_genre_from_lib():
 
     back_button = tk.Button(genre_books_win, text="Back", font=("David", 12), command=back_to_main, bg="#FFA500", fg="white")
     back_button.grid(row=5, column=2, padx=3, pady=3)
-
-
-
-
-
-
-
-
 
 
 

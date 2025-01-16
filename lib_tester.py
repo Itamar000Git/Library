@@ -1,20 +1,29 @@
+import time
 import unittest
 
 import Librarian
 import Serarch_strategy
+import person_details_gui
 
 from Librarian import *
 from Book import BookFactory
 
 class MyTestCase(unittest.TestCase):
-
-
+###Please don't run all tests together!
+    '''
+    Checks if the system can identify duplicate usernames.
+    Creates two users with the same username and ensures the system detects the conflict.
+    '''
     def test_duplicated_user_name(self):
         c1 =["Dan", 26, "the_same", "1234"]
         Librarian.create_librarian(c1)
         c2 = ["ben", 30, "the_same", "1111"]
         self.assertTrue(check_user_name(c2[2]))
 
+    '''
+    Verifies that the system raises errors for invalid age inputs.
+    Tests with a non-numeric age and a negative age.
+    '''
     def test_invalid_age(self):
         with self.assertRaises(ValueError):
             c2 = ["ben", "aa", "the_same", "1111"]
@@ -23,6 +32,11 @@ class MyTestCase(unittest.TestCase):
             c1 = ["Dan", -1, "dan12", "1234"]
             validate_input(c1[1],"age")
 
+
+    '''
+    Tests password hashing and validation functionality.
+    Hashes passwords for two librarians and checks if the passwords match correctly.
+    '''
     def test_cradential(self):
         c1 =["Dan", 26, "Dan12", "1234"]
         c2 = ["ben", 10, "ben21", "1111"]
@@ -35,6 +49,13 @@ class MyTestCase(unittest.TestCase):
 
         self.assertFalse(check_password(l2.get_password(),"Dan12"))
         self.assertTrue(check_password(l2.get_password(), "ben21"))
+
+
+
+    '''
+    Tests the removal of books based on their status (loaned, available, or non-existent).
+    Attempts to remove books in various scenarios and checks the responses.
+    '''
 
     def test_removed_loaned_book(self):
         new_b = ["test", "myself", "Fantasy", 2, 2005]
@@ -50,23 +71,44 @@ class MyTestCase(unittest.TestCase):
         result=remove_book("not exist book")
         self.assertTrue(result=="not found")
 
+
+
+
+
+    '''
+    Checks the system's behavior when attempting to loan a non-existent book.
+    Ensures the system returns the correct response.
+    '''
     def test_loaned_not_exist_book(self):
         b = lend_book("not exist book")
         self.assertTrue(b=="not found")
 
 
+    '''
+   Tests the system's handling of books with limited availability.
+   Loans a book until no copies are left and ensures the response transitions to a waiting list.
+    '''
     def test_loaned_unavailable_book(self):
         new_b = ["test1", "myself", "other", 2, 2005]
         Librarian.init_library()
         add_book(new_b)
-        b=lend_book("test")
+        b=lend_book("test1")
         self.assertTrue(b == "done")
-        b=lend_book("test")
+        b=lend_book("test1")
         self.assertTrue(b == "done")
-        b=lend_book("test")
+        b=lend_book("test1")
         self.assertTrue(b == "waiting list")
 
+        return_book("test1")
+        return_book("test1")
+        remove_book("test1")
 
+
+
+    '''
+    Tests adding new books and updating copies of existing books.
+    Adds a new book, removes it, re-adds it, and checks if the copies are updated correctly.
+    '''
     def test_add_new_or_exist(self):
 
         Librarian.init_library()
@@ -93,6 +135,12 @@ class MyTestCase(unittest.TestCase):
 
 
 
+
+
+        '''
+       Checks the behavior of adding books when a waiting list exists.
+       Adds a book with limited copies, handles waiting list entries, and verifies updates after returning books.
+       '''
     def test_add_book_with_waiting_list(self):
         Librarian.init_library()
         new_b=BookFactory.creat_book("test3", "myself","No", "other", 1,0,[], 2005)
@@ -118,6 +166,10 @@ class MyTestCase(unittest.TestCase):
         remove_book("test3")
 
 
+    '''
+       Ensures correct search results when looking for books by title.
+       Searches for a non-existent book, adds it, and verifies it appears in the results.
+       '''
 
     def test_search_new_book(self):
         Librarian.init_library()
@@ -165,7 +217,11 @@ class MyTestCase(unittest.TestCase):
         remove_book("test3")
         remove_book("test4")
 
-
+    '''
+    This test verifies the most popular book in the library based on borrowing activity.
+    It checks that the popularity of a book changes after multiple borrowings, and ensures the book 
+    remains the most popular until the new book is borrowed enough times.
+    '''
     def test_popularity_result(self):
         Librarian.init_library()
         popular=popular_books()
@@ -190,9 +246,11 @@ class MyTestCase(unittest.TestCase):
 
         remove_book("test5")
 
-
-
-
+        '''
+           This test checks the behavior of a book that has only one available copy.
+           It ensures that when the book is borrowed, it gets moved to the loaned list,
+           and is removed from the available list until it is returned.
+           '''
 
     def test_loaned_last_ava_book(self):
         Librarian.init_library()
@@ -211,11 +269,10 @@ class MyTestCase(unittest.TestCase):
         remove_book("test6")
 
 
-
-
-
-
-
+    '''
+    This test ensures that the system raises the correct exceptions (ValueError) when invalid data is input.
+    It checks for various invalid inputs such as empty strings, negative numbers, and invalid phone numbers.
+    '''
 
     def test_exceptions_raises(self):
         Librarian.init_library()
@@ -228,6 +285,11 @@ class MyTestCase(unittest.TestCase):
         self.assertRaises(ValueError, validate_input, 11111, "phone")
 
 
+    '''
+    This test verifies that the system logs all important actions, such as adding, removing, 
+    and searching for books. It checks that each action is correctly logged to a file, and then 
+    verifies the content of the log file against the expected log entries
+    '''
 
     def test_log(self):
 
@@ -306,6 +368,12 @@ class MyTestCase(unittest.TestCase):
             self.assertTrue(log_txt[i]==logger[i])
 
 
+    '''
+    This test checks if the library correctly manages the first available book in case of a book return 
+    and verifies that the correct number of copies is adjusted when a book is returned and added back. 
+    It also verifies if the book's availability status is updated accordingly.
+    '''
+
 
     def test_return_first_or_add_first_ava_book(self):
         Librarian.init_library()
@@ -342,6 +410,11 @@ class MyTestCase(unittest.TestCase):
         remove_book("test9")
 
 
+    '''
+    This test checks if the system properly handles and displays the results for books that are removed 
+    or not found. It also verifies if the appropriate error message is shown when trying to return or 
+    remove a book that is not in the system.
+    '''
 
     def test_return_not_exist_book(self):
         Librarian.init_library()

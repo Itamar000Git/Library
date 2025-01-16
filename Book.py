@@ -26,6 +26,8 @@ class Book(ABC):
 
 
 
+
+
     def remove_first(self):
         self.__waiting_list.remove(self.__waiting_list[0])
 

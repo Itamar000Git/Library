@@ -5,10 +5,6 @@ from Librarian import *
 
 import Gui_lib
 
-
-
-
-
 def main():
 
     Librarian.init_library()
